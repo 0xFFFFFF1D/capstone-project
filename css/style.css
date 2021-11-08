@@ -1,0 +1,49 @@
+/* Custom Stylesheet */
+/**
+ * Use this file to override Materialize files so you can update
+ * the core Materialize files in the future
+ *
+ * Made By MaterializeCSS.com
+ */
+@import url('https://fonts.googleapis.com/css2?family=Questrial&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500;1,600;1,700;1,800&display=swap');
+
+body {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+main {
+  flex: 1 0 auto;
+}
+
+.header-font {
+  font-family: 'EB Garamond', sans-serif;
+  font-weight: 700;
+  font-kerning: none;
+}
+
+
+.normal { /* "Normal" font weight */
+  font-weight: 400;
+  font-weight: normal;
+}
+
+.italic {
+  font-style: italic;
+  font-style: oblique;
+}
+
+.icon-block {
+  padding: 0 15px;
+}
+
+.icon-block .material-icons {
+	font-size: inherit;
+}
+/*
+#index-banner {
+  min-height: 100vh;
+}
+*/
