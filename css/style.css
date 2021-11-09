@@ -42,6 +42,14 @@ main {
 .icon-block .material-icons {
 	font-size: inherit;
 }
+
+.myElement {
+  padding-top: 40px;
+}
+
+.loginFont {
+  font-size: 40px;
+}
 /*
 #index-banner {
   min-height: 100vh;
