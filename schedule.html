@@ -10,6 +10,15 @@
     <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
     <link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
     <script src="https://kit.fontawesome.com/c1a26a6b8a.js" crossorigin="anonymous"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var elems = document.querySelectorAll('.datepicker');
+            var instances = M.Datepicker.init(elems, {
+                format: 'mm-dd-yyyy',
+                autoClose: true
+            });
+        });
+    </script>
 </head>
 
 <body>
@@ -28,13 +37,12 @@
     </div>
 </nav>
 <main>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            var elems = document.querySelectorAll('.datepicker');
-            var instances = M.Datepicker.init(elems, options);
-        });
-    </script>
-    <input type="text" class="datepicker">
+    <div class="row">
+    <div class="input-field col s4">
+        <input type="text" class="datepicker no-autoinit">
+    </div>
+    </div>
+
 </main>
 <footer class="page-footer orange">
     <div class="container">
@@ -62,6 +70,7 @@
         </div>
     </div>
 </footer>
+<script>M.AutoInit(); </script>
 
 </body>
 
