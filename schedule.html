@@ -18,6 +18,15 @@
                 autoClose: true
             });
         });
+
+        document.addEventListener('DOMContentLoaded', function () {
+                var elems = document.querySelectorAll('.timepicker');
+                var instances = M.Timepicker.init(elems, {
+                    defaultTime: 'now', // Set default time: 'now', '1:30AM', '16:30'
+                    twelveHour: true, // Use AM/PM or 24-hour format
+                    autoClose: false, // automatic close timepicker
+                });
+            });
     </script>
 </head>
 
@@ -38,9 +47,12 @@
 </nav>
 <main>
     <div class="row">
-    <div class="input-field col s4">
-        <input type="text" class="datepicker no-autoinit">
-    </div>
+        <div class="input-field col s4">
+            <input type="text" class="datepicker no-autoinit">
+        </div>
+        <div class="input-field col s4">
+            <input type="text" class="timepicker no-autoinit">
+        </div>
     </div>
 
 </main>
