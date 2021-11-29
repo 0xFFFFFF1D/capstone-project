@@ -10,18 +10,36 @@
     <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
     <link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
     <script src="https://kit.fontawesome.com/c1a26a6b8a.js" crossorigin="anonymous"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var elems = document.querySelectorAll('.datepicker');
+            var instances = M.Datepicker.init(elems, {
+                format: 'mm-dd-yyyy',
+                autoClose: true
+            });
+        });
+
+        document.addEventListener('DOMContentLoaded', function () {
+                var elems = document.querySelectorAll('.timepicker');
+                var instances = M.Timepicker.init(elems, {
+                    defaultTime: 'now', // Set default time: 'now', '1:30AM', '16:30'
+                    twelveHour: true, // Use AM/PM or 24-hour format
+                    autoClose: false, // automatic close timepicker
+                });
+            });
+    </script>
 </head>
 
 <body>
 <nav class="orange darken-1" role="navigation">
     <div class="nav-wrapper container">
-        <a name="logo-container" href="index.html" class="brand-logo header-font">AprilScheduler</a>
+        <a id="logo-container" href="index.html" class="brand-logo header-font">AprilScheduler</a>
         <ul class="right hide-on-med-and-down">
             <li><a href="#">Navbar Link</a></li>
         </ul>
 
         <!-- This is for mobile support -->
-        <ul name="nav-mobile" class="sidenav">
+        <ul id="nav-mobile" class="sidenav">
             <li><a href="#">Navbar Link</a></li>
         </ul>
         <a href="#" data-target="nav-mobile" class="sidenav-trigger"><i class="material-icons">menu</i></a>
@@ -29,28 +47,29 @@
 </nav>
 <main>
     <div class="container myElement">
-        <div class="row">
-            <form class="col s12"> <!--action="processLogIn.php"-->
+        <form class="col s12">
+            <div class="row">
                 <div class="row">
-                    <div class="input-field col s3">
-                        <input style="font-size: 1em" placeholder="Please enter your username or email" name="login" id="login" type="text" class="validate">
-                        <label style="font-size: 1.3em" for="login">Username/Email</label>
+                    <div class="input-field col s4">
+                        <input type="text" class="datepicker no-autoinit" name="date" id="date" placeholder="Please enter the date of the appointment">
+                        <label style="font-size: 1.3em" for="date">Date</label>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="input-field col s3">
-                        <input style="font-size: 1em" placeholder="Please enter your password" name="password" id="password" type="password" class="validate">
-                        <label style="font-size: 1.3em" for="password">Password</label>
+                    <div class="input-field col s4">
+                        <input type="text" class="timepicker no-autoinit" name="time" id="time" placeholder="Please enter the time of the appointment">
+                        <label style="font-size: 1.3em" for="time">Time</label>
                     </div>
                 </div>
                 <div class="row">
-                    <a href="schedule_login.html" id="download-button" class="btn-large waves-effect waves-light orange hoverable">
-                        Login and go to Scheduling <i class="material-icons right">send</i> 
-                    </a>
+                    <div class="input-field col s4">
+                        <input type="text" class="validate" placeholder="Please type your full name." name="name" id="name">
+                        <label style="font-size: 1.3em" for="name">Full Name</label>
+                    </div>
                 </div>
-            </form>
-        </div>
-    </div>
+            </div>
+        </form>
+
 </main>
 <footer class="page-footer orange">
     <div class="container">
@@ -80,6 +99,7 @@
 </footer>
 
 </body>
+
 <!--  Scripts-->
 <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
 <script src="js/materialize.js"></script>
