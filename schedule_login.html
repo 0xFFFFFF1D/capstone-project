@@ -49,17 +49,25 @@
     <div class="container myElement">
         <form class="col s12">
             <div class="row">
-                <div class="row">
-                    <div class="input-field col s4">
-                        <input type="text" class="datepicker no-autoinit" name="date" id="date" placeholder="Please enter the date of the appointment">
-                        <label style="font-size: 1.3em" for="date">Date</label>
-                    </div>
+                    <h1>Schedule an appointment</h1>
+            </div>
+            <div class="row">
+                <div class="input-field col s4">
+                    <input type="text" class="datepicker no-autoinit" name="date" id="date" placeholder="Please enter the date of the appointment" required>
+                    <label style="font-size: 1.3em" for="date">Date</label>
                 </div>
-                <div class="row">
-                    <div class="input-field col s4">
-                        <input type="text" class="timepicker no-autoinit" name="time" id="time" placeholder="Please enter the time of the appointment">
-                        <label style="font-size: 1.3em" for="time">Time</label>
-                    </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s4">
+                    <input type="text" class="timepicker no-autoinit" name="time" id="time" placeholder="Please enter the time of the appointment" required>
+                    <label style="font-size: 1.3em" for="time">Time</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s4">
+                    <a class="btn-large waves-effect waves-light" href="">
+                        Schedule and Pay <i class="material-icons right">send</i>
+                    </a>
                 </div>
             </div>
         </form>
