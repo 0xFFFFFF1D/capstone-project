@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,7 +18,7 @@
 <body>
   <nav class="orange darken-1" role="navigation">
     <div class="nav-wrapper container">
-      <a id="logo-container" href="../index.html" class="brand-logo header-font">AprilScheduler</a>
+      <a id="logo-container" href="index.php" class="brand-logo header-font">AprilScheduler</a>
       <ul class="right hide-on-med-and-down">
         <li><a href="#">Navbar Link</a></li>
       </ul>
@@ -39,9 +42,9 @@
         
         <!-- Buttons -->
         <div class="row center">
-          <a href="html/login.html" id="download-button" class="btn-large waves-effect waves-light orange hoverable">Log In</a>
-          <a href="html/signup.html" id="download-button" class="btn-large waves-effect waves-light orange hoverable">Sign Up</a>
-          <a href="schedule_guest.html" id="download-button" class="btn-large waves-effect waves-light orange hoverable">Schedule as Guest</a>
+          <a href="login.php" id="download-button" class="btn-large waves-effect waves-light orange hoverable">Log In</a>
+          <a href="signup.php" id="download-button" class="btn-large waves-effect waves-light orange hoverable">Sign Up</a>
+          <a href="schedule_guest.php" id="download-button" class="btn-large waves-effect waves-light orange hoverable">Schedule as Guest</a>
         </div>
 
 
