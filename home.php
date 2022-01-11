@@ -1,14 +1,14 @@
 <?php
 session_start();
 
-if(isset($_SESSION['id']) && isset($_SESSION['username'])) {
+if(isset($_SESSION['uid'])) {
 ?>
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title><!DOCTYPE html>
+    <!DOCTYPE html>
         <html lang="en">
         <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>

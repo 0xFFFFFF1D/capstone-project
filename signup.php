@@ -1,6 +1,3 @@
-<?php
-session_start();
-?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -66,7 +63,7 @@ session_start();
                             </div>
                             <div class="input-field col s6">
                                 <input name="confirmPassword" id="confirmPassword" type="password" class="validate" required>
-                                <label for="password">Confirm password</label>
+                                <label for="confirmPassword">Confirm password</label>
                             </div>
                         </div>
                         <div class="row">
@@ -81,7 +78,7 @@ session_start();
                       </div>
                       <div class="row">
                         <div class="center-align">
-                          <a href="login.html" id="download-button" class="btn-large waves-effect waves-light orange hoverable">
+                          <a href="login.php" id="download-button" class="btn-large waves-effect waves-light orange hoverable">
                             Log In
                           </a>
                         </div>

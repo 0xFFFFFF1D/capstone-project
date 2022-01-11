@@ -1,8 +1,8 @@
 <?php
 session_start();
-require_once("../index.php");
+require_once("api.php");
 
-$api = new CQ_API();
+$api = new AprilInstituteScheduler_API();
 $api -> connect();
 $conn = $api -> conn;
 
@@ -19,17 +19,33 @@ $result = $statement -> get_result();
 
 echo "<table class=\"highlight responsive-table\">
                                 <tr>
-                                <th>Name</th>
-                                <th>Date of Last Event</th>
+                                <th>Date & Time</th>
+                                <th>Type</th>
+                                <th>Scheduled with</th>
+                                <th>Location</th>
                                 </tr>";
 
 while($row = $result -> fetch_assoc())
 {
-    $sponsor = $row['id'];
+    $type = $api -> getEventType($row['id']);
     echo "<tr>";
-    echo "<td>" . $row['name'] . "</td>";
-    echo "<td>" . $row['last_event'] . "</td>";
-    echo "<td><a href='events.php?sponsor=$sponsor'>View</a></td>";
+    echo "<td>" . $row['date'] . "</td>";
+    echo "<td>" . $api -> $type . "</td>";
+
+    if($type === "Appointment") {
+        $scheduled_with = $api -> getScheduledWith($row['id']);
+        echo "<td> . $scheduled_with . </td>";
+    }
+    else {
+        echo "<td>N/A</td>";
+    }
+
+    if($row['is_virtual']) {
+        echo "<td><a href=" . $row['address'] . ">Zoom</a></td>";
+    }
+    else {
+        echo "<td>" . $row['address'] . "</td>";
+    }
     echo "</tr>";
 }
 echo "</table>";
