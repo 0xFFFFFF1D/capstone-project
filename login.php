@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,7 +18,7 @@
 <body>
 <nav class="orange darken-1" role="navigation">
     <div class="nav-wrapper container">
-        <a name="logo-container" href="../index.html" class="brand-logo header-font">AprilScheduler</a>
+        <a name="logo-container" href="home.php" class="brand-logo header-font">AprilScheduler</a>
         <ul class="right hide-on-med-and-down">
             <li><a href="#">Navbar Link</a></li>
         </ul>
@@ -30,11 +33,16 @@
 <main>
     <div class="container myElement">
         <div class="row">
-            <form class="col s12"> <!--action="processLogIn.php"-->
+            <form class="col s12" action="processLogin.php?" method="post">
+                <?php
+                if(isset($_SESSION['error'])){
+                    echo $_SESSION['error'];
+                }
+                ?>
                 <div class="row">
                     <div class="input-field col s3">
-                        <input style="font-size: 1em" placeholder="Please enter your username or email" name="login" id="login" type="text" class="validate" required>
-                        <label style="font-size: 1.3em" for="login">Username/Email</label>
+                        <input style="font-size: 1em" placeholder="Please enter the email address" name="email" id="email" type="text" class="validate" required>
+                        <label style="font-size: 1.3em" for="login">Email</label>
                     </div>
                 </div>
                 <div class="row">
@@ -44,7 +52,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    <a href="landing_page.html" id="download-button" class="btn-large waves-effect waves-light orange hoverable">
+                    <a href="processLogin.php" id="download-button" class="btn-large waves-effect waves-light orange hoverable">
                         Login<i class="material-icons right">send</i>
                     </a>
                 </div>

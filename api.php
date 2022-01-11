@@ -43,8 +43,8 @@ class AprilInstituteScheduler_API
     public function registerUser($first_name, $last_name, $email, $phone_number, $password)
     {
 
-        $sql = "INSERT INTO users 
-                SET first_name=?, last_name=?, email=?, phone_number=?, password=?";
+        $sql = "INSERT INTO users (first_name, last_name, email, phone_number, password)
+                VALUES(?, ?, ?, ?, ?)";
         $statement = $this->conn->prepare($sql);
 
         if (!$statement) {
@@ -59,5 +59,69 @@ class AprilInstituteScheduler_API
         } else {
             return $ret;
         }
+    }
+
+    public function verifyLogIn($email, $password) {
+        $sql = "SELECT * 
+                FROM users
+                WHERE email = ?
+                AND password = ?
+                ";
+
+        $statement = $this->conn->prepare($sql);
+
+        if (!$statement) {
+            throw new Exception($statement->error);
+        }
+
+        $statement->bind_param("ss", $email, $password);
+        $statement->execute();
+        $result = $statement -> get_result();
+        while($row = $result -> fetch_assoc()) {
+            $ret[] = $row;
+        }
+        return $ret;
+    }
+
+    public function getEventType($event_id){
+        $sql = "SELECT type 
+                FROM types
+                WHERE events.id = ?
+                AND types.id = events.type_id";
+
+        $statement = $this->conn->prepare($sql);
+
+        if (!$statement) {
+            throw new Exception($statement->error);
+        }
+
+        $statement->bind_param("i", $event_id);
+        $statement->execute();
+        $result = $statement -> get_result();
+        while($row = $result -> fetch_assoc()) {
+            $ret = $row['type'];
+        }
+        return $ret;
+    }
+
+    public function getScheduledWith($event_id){
+        $sql = "SELECT uid
+                FROM users, events
+                WHERE uid = user_id
+                AND event_id = ?";
+
+        $statement = $this->conn->prepare($sql);
+
+        if (!$statement) {
+            throw new Exception($statement->error);
+        }
+
+        $statement->bind_param("i", $event_id);
+        $statement->execute();
+        $result = $statement -> get_result();
+        while($row = $result -> fetch_assoc()) {
+            $ret[] = $row;
+        }
+        return $ret;
     }
 }
