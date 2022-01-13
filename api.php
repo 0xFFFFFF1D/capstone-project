@@ -74,8 +74,8 @@ class AprilInstituteScheduler_API
         $statement->execute();
         $result = $statement->get_result();
 
-        if(password_verify($password, $result['password'])) {
-            return $result['uid'];
+        if(password_verify($password, $result->fetch_assoc()['password'])) {
+            return $result->fetch_assoc();
         }
     }
 
