@@ -62,11 +62,7 @@ class AprilInstituteScheduler_API
     }
 
     public function verifyLogIn($email, $password) {
-        $sql = "SELECT * 
-                FROM users
-                WHERE email = ?
-                AND password = ?
-                ";
+        $sql = "SELECT password, uid FROM users WHERE email = ?";
 
         $statement = $this->conn->prepare($sql);
 
@@ -74,13 +70,13 @@ class AprilInstituteScheduler_API
             throw new Exception($statement->error);
         }
 
-        $statement->bind_param("ss", $email, $password);
+        $statement->bind_param("s", $email);
         $statement->execute();
-        $result = $statement -> get_result();
-        while($row = $result -> fetch_assoc()) {
-            $ret[] = $row;
+        $result = $statement->get_result();
+
+        if(password_verify($password, $result['password'])) {
+            return $result['uid'];
         }
-        return $ret;
     }
 
     public function getEventType($event_id){
