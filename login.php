@@ -2,7 +2,7 @@
 <?php $title="Login"; include("template/base_header.php"); ?>
     <div class="container myElement">
         <div class="row">
-            <form class="col s12" action="processLogin.php?" method="post">
+            <form class="col s12" action="processLogin.php?" method="POST">
                 <?php
                 if(isset($_SESSION['error'])){
                     echo $_SESSION['error'];
@@ -11,7 +11,7 @@
                 <div class="row">
                     <div class="input-field col s3">
                         <input style="font-size: 1em" placeholder="Please enter the email address" name="email" id="email" type="text" class="validate" required>
-                        <label style="font-size: 1.3em" for="login">Email</label>
+                        <label style="font-size: 1.3em" for="email">Email</label>
                     </div>
                 </div>
                 <div class="row">
@@ -21,9 +21,9 @@
                     </div>
                 </div>
                 <div class="row">
-                    <a href="processLogin.php" id="download-button" class="btn-large waves-effect waves-light orange hoverable">
-                        Login<i class="material-icons right">send</i>
-                    </a>
+                    <button class="btn waves-effect waves-light" type="submit" name="action">
+                        Submit<i class="material-icons right">send</i>
+                    </button>
                 </div>
             </form>
         </div>
