@@ -5,7 +5,7 @@ if(isset($_SESSION['uid'])) {
 ?>
 
 
-<?php $title="Home"; include("/template/base_header.php"); ?>
+<?php $title="Home"; include("template/base_header.php"); ?>
     <div class="container" id="index-banner">
         <div class="section col">
 
@@ -21,7 +21,7 @@ if(isset($_SESSION['uid'])) {
 
         </div>
     </div>
-<?php include("/template/base_footer.php"); ?>
+<?php include("template/base_footer.php"); ?>
 
 
 
