@@ -10,7 +10,7 @@ if(isset($_SESSION['uid'])) {
         <div class="section col">
 
 
-            <h1 class="header center orange-text header-font">Welcome <?php echo $_SESSION['first_name']; var_dump($_SESSION);?></h1>
+            <h1 class="header center orange-text header-font">Welcome <?php echo $_SESSION['first_name'];?></h1>
             <div class="row center">
                 <?php include("getEventsTable.php");?>
             </div>
