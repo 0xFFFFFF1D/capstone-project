@@ -62,7 +62,7 @@ class AprilInstituteScheduler_API
     }
 
     public function verifyLogIn($email, $password) {
-        $sql = "SELECT password, uid FROM users WHERE email = ?";
+        $sql = "SELECT * FROM users WHERE email = ?";
 
         $statement = $this->conn->prepare($sql);
 
@@ -99,7 +99,7 @@ class AprilInstituteScheduler_API
         $statement->execute();
         $result = $statement -> get_result();
         while($row = $result -> fetch_assoc()) {
-            $ret = $row['type'];
+            $ret = $row;
         }
         return $ret;
     }
