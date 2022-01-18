@@ -6,7 +6,7 @@ $api = new AprilInstituteScheduler_API();
 $api -> connect();
 $conn = $api -> conn;
 
-$sql = "SELECT * FROM events WHERE uid = ?";
+$sql = "SELECT events.* FROM events, xref_users_events WHERE events.id = xref.event_id AND xref.user_id = ?";
 $statement = $conn -> prepare($sql);
 
 if(!$statement) {
@@ -30,9 +30,9 @@ while($row = $result -> fetch_assoc())
     $type = $api -> getEventType($row['id']);
     echo "<tr>";
     echo "<td>" . $row['date'] . "</td>";
-    echo "<td>" . $api -> $type . "</td>";
+    echo "<td>" . $type['name'] . "</td>";
 
-    if($type === "Appointment") {
+    if($type['name'] === "Appointment") {
         $scheduled_with = $api -> getScheduledWith($row['id']);
         echo "<td> . $scheduled_with . </td>";
     }
