@@ -10,7 +10,7 @@ $api = new AprilInstituteScheduler_API();
 $api -> connect();
 $loggedIn = $api -> verifyLogIn($email, $password);
 
-if(isset($loggedIn)) {
+if($loggedIn != null) {
     $_SESSION['uid'] = $loggedIn['uid'];
     $_SESSION['first_name'] = $loggedIn['first_name'];
     header("Location: home.php");

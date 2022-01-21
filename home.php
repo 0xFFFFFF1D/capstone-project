@@ -2,10 +2,8 @@
 session_start();
 
 if(isset($_SESSION['uid'])) {
-?>
+    $title="Home"; include("template/base_header.php"); ?>
 
-
-<?php $title="Home"; include("template/base_header.php"); ?>
     <div class="container" id="index-banner">
         <div class="section col">
 
@@ -15,20 +13,18 @@ if(isset($_SESSION['uid'])) {
                 <?php include("getEventsTable.php");?>
             </div>
             <div class="row center">
-                <a href="schedule_login.html" id="download-button" class="btn-large waves-effect waves-light orange hoverable">Schedule</a>
+                <a href="schedule_login.php" id="download-button" class="btn-large waves-effect waves-light orange hoverable">Schedule</a>
             </div>
 
 
         </div>
     </div>
-<?php include("template/base_footer.php"); ?>
-
-
 
 <?php
+include("template/base_footer.php");
 }
 else{
-    header("Location: login.php");
+    header("Location: index.php");
     exit();
 }
 ?>
