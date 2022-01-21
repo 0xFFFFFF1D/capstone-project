@@ -83,11 +83,10 @@ class AprilInstituteScheduler_API
         }
     }
 
-    public function getEventType($event_id){
+    public function getTypeFromTypeID($type_id){
         $sql = "SELECT type 
                 FROM types
-                WHERE events.id = ?
-                AND types.id = events.type_id";
+                WHERE types.id = ?";
 
         $statement = $this->conn->prepare($sql);
 
@@ -95,7 +94,7 @@ class AprilInstituteScheduler_API
             throw new Exception($statement->error);
         }
 
-        $statement->bind_param("i", $event_id);
+        $statement->bind_param("i", $type_id);
         $statement->execute();
         $result = $statement -> get_result();
         while($row = $result -> fetch_assoc()) {
@@ -105,9 +104,10 @@ class AprilInstituteScheduler_API
     }
 
     public function getScheduledWith($event_id){
-        $sql = "SELECT uid
-                FROM users, events
-                WHERE uid = user_id
+        $sql = "SELECT users.*
+                FROM admins, xref_users_events, users
+                WHERE admins.uid = user_id
+                AND admins.uid = users.uid
                 AND event_id = ?";
 
         $statement = $this->conn->prepare($sql);
@@ -119,9 +119,7 @@ class AprilInstituteScheduler_API
         $statement->bind_param("i", $event_id);
         $statement->execute();
         $result = $statement -> get_result();
-        while($row = $result -> fetch_assoc()) {
-            $ret[] = $row;
-        }
-        return $ret;
+
+        return $result -> fetch_assoc();
     }
 }

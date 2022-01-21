@@ -17,12 +17,12 @@
   <div class="nav-wrapper container">
     <a id="logo-container" href="index.php" class="brand-logo header-font">AprilScheduler</a>
     <ul class="right hide-on-med-and-down">
-      <li><a href="#">Navbar Link</a></li>
+      <li><a href="logout.php">Logout</a></li>
     </ul>
 
     <!-- This is for mobile support -->
     <ul id="nav-mobile" class="sidenav">
-      <li><a href="#">Navbar Link</a></li>
+        <li><a id="logo-container" href="index.php" class="brand-logo header-font">AprilScheduler</a></li>
     </ul>
     <a href="#" data-target="nav-mobile" class="sidenav-trigger"><i class="material-icons">menu</i></a>
   </div>
