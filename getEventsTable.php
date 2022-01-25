@@ -1,12 +1,16 @@
 <?php
-session_start();
+if (!isset($_SESSION)) {
+    session_start();
+}
+
+
 require_once("api.php");
 
 $api = new AprilInstituteScheduler_API();
 $api -> connect();
 $conn = $api -> conn;
 
-$sql = "SELECT events.* FROM events, xref_users_events WHERE events.id = xref.event_id AND xref.user_id = ?";
+$sql = "SELECT events.* FROM events, xref_users_events WHERE events.id = xref_users_events.event_id AND xref_users_events.user_id = ?";
 $statement = $conn -> prepare($sql);
 
 if(!$statement) {
