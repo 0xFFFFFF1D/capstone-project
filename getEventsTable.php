@@ -8,10 +8,12 @@ require_once("api.php");
 
 $api = new AprilInstituteScheduler_API();
 $api -> connect();
-$conn = $api -> conn;
 
-$sql = "SELECT events.* FROM events, xref_users_events WHERE events.id = xref_users_events.event_id AND xref_users_events.user_id = ?";
-$statement = $conn -> prepare($sql);
+$sql = "SELECT events.* 
+        FROM events, xref_users_events 
+        WHERE events.id = xref_users_events.event_id 
+        AND xref_users_events.user_id = ?";
+$statement = $api -> conn -> prepare($sql);
 
 if(!$statement) {
     throw new Exception($statement -> error);
@@ -21,24 +23,25 @@ $statement -> bind_param("i", $_SESSION['uid']);
 $statement -> execute();
 $result = $statement -> get_result();
 
-echo "<table class=\"highlight responsive-table\">
-                                <tr>
-                                <th>Date & Time</th>
-                                <th>Type</th>
-                                <th>Scheduled with</th>
-                                <th>Location</th>
-                                </tr>";
 
-while($row = $result -> fetch_assoc())
-{
-    $type = $api -> getEventType($row['id']);
+echo "<table class=\"highlight responsive-table\">
+        <tr>
+        <th>Date & Time</th>
+        <th>Type</th>
+        <th>Scheduled with</th>
+        <th>Location</th>
+        </tr>";
+
+while($row = $result -> fetch_assoc()) {
+    $type = $api -> getTypeFromTypeID($row['type_id']);
     echo "<tr>";
     echo "<td>" . $row['date'] . "</td>";
-    echo "<td>" . $type['name'] . "</td>";
+    echo "<td>" . $type['type'] . "</td>";
 
-    if($type['name'] === "Appointment") {
+    if($type['type'] === "Appointment") {
         $scheduled_with = $api -> getScheduledWith($row['id']);
-        echo "<td> . $scheduled_with . </td>";
+
+        echo "<td>" . $scheduled_with['last_name'] . ', ' . $scheduled_with['first_name'] . "</td>";
     }
     else {
         echo "<td>N/A</td>";
