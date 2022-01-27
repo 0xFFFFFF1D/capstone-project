@@ -52,7 +52,7 @@ main {
 	font-size: inherit;
 }
 
-.myElement {
+.mainContainer {
   padding-top: 40px;
 }
 
@@ -66,8 +66,9 @@ main {
 */
 
 footer {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
+
 }
 
+.container {
+  height: 80%;
+}

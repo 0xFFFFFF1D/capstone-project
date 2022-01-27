@@ -6,7 +6,8 @@ if (!isset($_SESSION)) {
 
 ?>
 <?php $title="Login"; include("template/base_header.php"); ?>
-    <div class="container myElement">
+
+    <div class="container mainContainer">
         <div class="row">
             <form class="col s12" action="processLogin.php?" method="POST">
                 <?php
@@ -34,5 +35,5 @@ if (!isset($_SESSION)) {
             </form>
         </div>
     </div>
-</main>
+
 <?php include("template/base_footer.php"); ?>

@@ -17,7 +17,8 @@
             });
         });
 </script>
-    <div class="container myElement">
+
+    <div class="container mainContainer">
         <div class="row">
             <h2>Schedule as guest</h2>
         </div>
@@ -58,4 +59,5 @@
             </div>
         </form>
     </div>
+
 <?php include("template/base_footer.php"); ?>

@@ -39,4 +39,5 @@
             </div>
         </div>
     </div>
+
 <?php include("template/base_footer.php"); ?>

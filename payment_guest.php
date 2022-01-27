@@ -1,4 +1,5 @@
 <?php $title="Guest Payment"; include("template/base_header.php"); ?>
+
     <div class="contianer">
         <div class="row">
             <div class="col s12 m6 offset-m3">
@@ -39,4 +40,5 @@
             </div>
         </div>
     </div>
+
 <?php include("template/base_footer.php"); ?>
