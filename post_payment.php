@@ -1,4 +1,5 @@
 <?php $title="Paid!"; include("template/base_header.php"); ?>
+
   <div class="container" id="index-banner">
     <div class="section col">
 
@@ -34,4 +35,5 @@
 
     </div>
   </div>
+
 <?php include("template/base_footer.php") ?>

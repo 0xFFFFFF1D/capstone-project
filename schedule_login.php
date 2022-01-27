@@ -17,7 +17,8 @@
             });
         });
 </script>
-    <div class="container myElement">
+
+    <div class="container mainContainer">
         <form class="col s12">
             <div class="row">
                 <div class="col">
