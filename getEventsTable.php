@@ -25,12 +25,16 @@ $result = $statement -> get_result();
 
 
 echo "<table class=\"highlight responsive-table\">
+    <thead>
         <tr>
         <th>Date & Time</th>
         <th>Type</th>
         <th>Scheduled with</th>
         <th>Location</th>
-        </tr>";
+        </tr>
+    </thead>";
+
+echo "<tbody>";
 
 while($row = $result -> fetch_assoc()) {
     $type = $api -> getTypeFromTypeID($row['type_id']);
@@ -55,6 +59,10 @@ while($row = $result -> fetch_assoc()) {
     }
     echo "</tr>";
 }
+
+echo "</tbody>";
 echo "</table>";
 
 $api -> disconnect();
+// exit();
+return;
