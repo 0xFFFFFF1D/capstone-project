@@ -1,20 +1,11 @@
-<?php 
-if (!isset($_SESSION)) {
-    session_start();
-}
-
-
-?>
 <?php $title="Login"; include("template/base_header.php"); ?>
 
     <div class="container mainContainer">
         <div class="row">
             <form class="col s12" action="processLogin.php?" method="POST">
-                <?php
-                if(isset($_SESSION['error'])){
-                    echo $_SESSION['error'];
-                }
-                ?>
+                <?php if(isset($_GET['error'])){?>
+                    <p class="error"><?php echo $_GET['error']; ?></p>
+                <?php }?>
                 <div class="row">
                     <div class="input-field col s3">
                         <input style="font-size: 1em" placeholder="Please enter the email address" name="email" id="email" type="text" class="validate" required>
