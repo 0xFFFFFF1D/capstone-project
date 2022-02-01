@@ -64,5 +64,3 @@ echo "</tbody>";
 echo "</table>";
 
 $api -> disconnect();
-// exit();
-return;
