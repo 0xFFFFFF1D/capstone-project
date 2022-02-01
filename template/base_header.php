@@ -13,7 +13,7 @@
 </head>
 
 <body>
-<nav class="orange darken-1" role="navigation">
+<nav class="april-orange" role="navigation">
   <div class="nav-wrapper container">
     <a id="logo-container" href="index.php" class="brand-logo header-font">AprilScheduler</a>
     <ul class="right hide-on-med-and-down">

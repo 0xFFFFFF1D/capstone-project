@@ -11,7 +11,7 @@ else {
       <div class="section col">
 
 
-        <h1 class="header center orange-text header-font">AprilScheduler</h1>
+        <h1 class="header center april-orange-text header-font">AprilScheduler</h1>
         <div class="row center">
           <h5 class="header col s12 light header-font normal italic">An all-in-one stop for scheduling and payment</h5>
         </div>
