@@ -15,6 +15,7 @@ if(isset($_SESSION['uid'])) {
             <div class="row center">
                 <a href="schedule_login.php" id="download-button" class="btn-large waves-effect waves-light orange hoverable">Schedule</a>
             </div>
+            <a class="btn-floating btn-large waves-effect waves-light april-orange"><i class="material-icons">add</i></a>
 
 
         </div>
@@ -25,6 +26,5 @@ include("template/base_footer.php");
 }
 else{
     header("Location: index.php");
-    exit();
 }
 ?>
