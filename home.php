@@ -8,14 +8,13 @@ if(isset($_SESSION['uid'])) {
     $title="Home"; include("template/base_header.php"); ?>
     <div class="container" id="index-banner">
         <div class="section col">
-            <h1 class="header center orange-text header-font">Welcome <?php echo $_SESSION['first_name'];?></h1>
+            <h1 class="header center april-orange-text header-font">Welcome <?php echo $_SESSION['first_name'];?></h1>
             <div class="row center">
                 <?php include("getEventsTable.php");?>
             </div>
             <div class="row center">
-                <a href="schedule_login.php" id="download-button" class="btn-large waves-effect waves-light orange hoverable">Schedule</a>
+                <a class="btn-floating btn-large waves-effect waves-light april-orange" href="schedule.php"><i class="material-icons">add</i></a>
             </div>
-            <a class="btn-floating btn-large waves-effect waves-light april-orange"><i class="material-icons">add</i></a>
 
 
         </div>
