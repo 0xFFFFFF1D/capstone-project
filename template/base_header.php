@@ -15,7 +15,7 @@
 <body>
 <nav class="april-orange" role="navigation">
   <div class="nav-wrapper container">
-    <a id="logo-container" href="index.php" class="brand-logo header-font">AprilScheduler</a>
+    <a id="logo-container" href="home.php" class="brand-logo header-font">AprilScheduler</a>
     <ul class="right hide-on-med-and-down">
       <li><a href="logout.php">Logout</a></li>
     </ul>
