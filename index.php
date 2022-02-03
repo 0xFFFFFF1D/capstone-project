@@ -18,9 +18,9 @@ else {
         
         <!-- Buttons -->
         <div class="row center">
-          <a href="login.php" id="download-button" class="btn-large waves-effect waves-light orange hoverable">Log In</a>
-          <a href="signup.php" id="download-button" class="btn-large waves-effect waves-light orange hoverable">Sign Up</a>
-          <a href="schedule_guest.php" id="download-button" class="btn-large waves-effect waves-light orange hoverable">Schedule as Guest</a>
+          <a href="login.php" id="download-button" class="btn-large waves-effect waves-light april-orange hoverable">Log In</a>
+          <a href="signup.php" id="download-button" class="btn-large waves-effect waves-light april-orange hoverable">Sign Up</a>
+          <a href="schedule_guest.php" id="download-button" class="btn-large waves-effect waves-light april-orange hoverable">Schedule as Guest</a>
         </div>
 
 

@@ -3,7 +3,7 @@
         <form class="col s12">
             <div class="row">
                 <div class="col">
-                     <h1 class="header header-font">Schedule an appointment</h1>
+                     <h1 class="header header-font">Schedule</h1>
                 </div>
             </div>
                
@@ -21,7 +21,7 @@
             </div>
             <div class="row">
                 <div class="col s4">
-                    <a class="btn-large waves-effect waves-light" href="payment.php">
+                    <a class="btn-large waves-effect waves-light april-blue" href="payment.php">
                         Schedule and Pay <i class="material-icons right">send</i>
                     </a>
                 </div>
