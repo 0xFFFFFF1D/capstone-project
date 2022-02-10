@@ -1,29 +1,5 @@
 <?php $title="Schedule"; include("template/base_header.php") ?>
-<script>
-    var form_id = document.getElementById("schedule_form_div");
 
-    function changeForm() {
-        if (document.getElementById("type").value === "2") {
-            form_id.innerHTML = `
-                        <form class ="col s12" method="POST" action="processSchedule.php?">
-                            <div class="row center">
-                                <div class="input-field col s4">
-                                    <input type="text" class="datepicker" name="date" id="date" placeholder="Please enter the date of the appointment" required>
-                                    <label for="date">Date</label>
-                                </div>
-                            </div>
-                            <div class="row center">
-                                <div class="input-field col s4">
-                                    <input type="text" class="timepicker" name="time" id="time" placeholder="Please enter the time of the appointment" required>
-                                    <label for="time">Time</label>
-                                </div>
-                            </div>
-                        </form>`;
-        } else if (document.getElementById("type").value === "1") {
-            form_id.innerHTML = 'WOWWWW';
-        }
-    }
-</script>
 <div class="container mainContainer">
     <div class="row">
         <div class="col s4">
@@ -77,3 +53,30 @@
     });
 </script>
 <?php include("template/base_footer.php") ?>
+
+<script>
+    var form_id = document.getElementById("schedule_form_div");
+
+    function changeForm() {
+        if (document.getElementById("type").value === "2") {
+            form_id.innerHTML = `
+                        <form class ="col s12" method="POST" action="processSchedule.php?">
+                            <div class="row center">
+                                <div class="input-field col s4">
+                                    <input type="text" class="datepicker" name="date" id="date" placeholder="Please enter the date of the appointment" required>
+                                    <label for="date">Date</label>
+                                </div>
+                            </div>
+                            <div class="row center">
+                                <div class="input-field col s4">
+                                    <input type="text" class="timepicker" name="time" id="time" placeholder="Please enter the time of the appointment" required>
+                                    <label for="time">Time</label>
+                                </div>
+                            </div>
+                        </form>`;
+        } else if (document.getElementById("type").value === "1") {
+            form_id.innerHTML = 'WOWWWW';
+        }
+    }
+</script>
+
