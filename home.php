@@ -15,8 +15,6 @@ if(isset($_SESSION['uid'])) {
             <div class="row center">
                 <a class="btn-floating btn-large waves-effect waves-light april-orange" href="schedule.php"><i class="material-icons">add</i></a>
             </div>
-
-
         </div>
     </div>
 
