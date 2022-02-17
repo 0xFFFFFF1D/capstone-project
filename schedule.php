@@ -79,6 +79,7 @@
                                     <span class="helper-text">(i.e. "Tutoring", "Therapy", etc.)</span>
                                 </div>
                             </div>`;
+            
         }
         else if (document.getElementById("type").value === "1") {
             form.innerHTML = `
