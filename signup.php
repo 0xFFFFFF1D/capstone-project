@@ -87,8 +87,7 @@
             document.getElementById('confirm-password-text').innerHTML = 'Passwords do not match!'
         }
     }
-
-    pass.addEventListener('input', function() {
+    function update_button() {
         var val = password.value;
         var result = zxcvbn(val);
 
@@ -105,5 +104,7 @@
         } else {
             document.getElementById('submit_button').disabled = true;
         }
-    })
+    }
+    pass.addEventListener('keyup', update_button);
+    confirm_pass.addEventListener('keyup', update_button);
 </script>
