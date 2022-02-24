@@ -22,7 +22,9 @@
   <div class="nav-wrapper container">
     <a id="logo-container" href="home.php" class="brand-logo header-font">AprilScheduler</a>
     <ul class="right hide-on-med-and-down">
-      <li><a href="logout.php">Logout</a></li>
+        <?php if(isset($_SESSION['uid'])) {
+                echo '<li><a href="logout.php">Logout</a></li>';
+        }?>
     </ul>
 
     <!-- This is for mobile support -->
