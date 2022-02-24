@@ -8,6 +8,7 @@
 
             <div class="input-field col s6">
                 <select name="type" id="type" onchange="changeForm()">
+                    <option value="" disabled selected>--What are you scheduling for?--</option>
                     <option value="1">Event</option>
                     <option value="2">Appointment</option>
                 </select>
@@ -17,7 +18,61 @@
             </div>
         </div>
 
-    <div class="row" id="schedule_form_div"></div>
+    <div class="row" id="event_form_div" style="display: none">
+        <form class ="col s12" method="POST" action="processSchedule.php?type=2">
+            <div class="row center">
+                <div class="input-field col s4">
+                    <select name="type" id="type" onchange="changeForm()">
+                        <option value="1">Mirza</option>
+                        <option value="2">Riley</option>
+                    </select>
+                    <label for="type">
+                        With whom are you scheduling?
+                    </label>
+                </div>
+            </div>
+            <div class="row center">
+                <div class="input-field col s4">
+                    <input type="text" class="datepicker" name="date" id="date" required>
+                    <label for="date">Date</label>
+                </div>
+
+                <div class="input-field col s4">
+                    <input type="text" class="timepicker" name="time" id="time" required>
+                    <label for="time">Time</label>
+                </div>
+            </div>
+            <div class="row center">
+                <div class="input-field col s8">
+                    <textarea name="info" id="info" class="materialize-textarea"></textarea>
+                    <label for="info">Description</label>
+                    <span class="helper-text">(i.e. "Tutoring", "Therapy", etc.)</span>
+                </div>
+            </div>
+            <div class="row center">
+                <div class="col s4">
+                    <button type="submit" class="btn-large waves-effect waves-light april-blue">
+                        Schedule and Pay <i class="material-icons right">send</i>
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div class="row" id="appointment_form_div" style="display: none">
+        <form class ="col s12" method="POST" action="processSchedule.php?type=1">
+            <select>
+                <option> </option>
+            </select>
+            <div class="row center">
+                <div class="col s4">
+                    <button type="submit" class="btn-large waves-effect waves-light april-blue">
+                        Schedule and Pay <i class="material-icons right">send</i>
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
 </div>
 
 <?php include("template/base_footer.php") ?>
@@ -44,57 +99,18 @@
         $('select').formSelect();
     });
 
-    var form = document.getElementById("schedule_form_div");
+    var event_form = document.getElementById("event_form_div");
+    var schedule_form = document.getElementById("appointment_form_div");
+
 
     function changeForm() {
         if (document.getElementById("type").value === "2") {
-            form.innerHTML = `
-                        <form class ="col s12" method="POST" action="processSchedule.php?type=2">
-                            <div class="row center">
-                                <div class="input-field col s4">
-                                    <select name="type" id="type" onchange="changeForm()">
-                                        <option value="1">Mirza</option>
-                                        <option value="2">Riley</option>
-                                    </select>
-                                    <label for="type">
-                                        With whom are you scheduling?
-                                    </label>
-                                </div>
-                            </div>
-                            <div class="row center">
-                                <div class="input-field col s4">
-                                    <input type="text" class="datepicker" name="date" id="date" required>
-                                    <label for="date">Date</label>
-                                </div>
-
-                                <div class="input-field col s4">
-                                    <input type="text" class="timepicker" name="time" id="time" required>
-                                    <label for="time">Time</label>
-                                </div>
-                            </div>
-                            <div class="row center">
-                                <div class="input-field col s8">
-                                    <textarea name="info" id="info" class="materialize-textarea"></textarea>
-                                    <label for="info">Description</label>
-                                    <span class="helper-text">(i.e. "Tutoring", "Therapy", etc.)</span>
-                                </div>
-                            </div>`;
+            schedule_form.style.display = 'none';
+            event_form.style.display = 'block';
         }
         else if (document.getElementById("type").value === "1") {
-            form.innerHTML = `
-                                <form class ="col s12" method="POST" action="processSchedule.php?type=1">
-                                    <select>
-                                        <option> </option>
-                                    </select>
-                             `;
+            event_form.style.display = 'none';
+            schedule_form.style.display = 'block';
         }
-        form.innerHTML += `<div class="row center">
-                                <div class="col s4">
-                                    <button type="submit" class="btn-large waves-effect waves-light april-blue">
-                                        Schedule and Pay <i class="material-icons right">send</i>
-                                    </button>
-                                </div>
-                            </div>
-                            </form>`;
     }
 </script>
