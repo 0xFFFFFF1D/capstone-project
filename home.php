@@ -9,6 +9,13 @@ if(isset($_SESSION['uid'])) {
     <div class="container" id="index-banner">
         <div class="section col">
             <h1 class="header center april-orange-text header-font">Welcome <?php echo $_SESSION['first_name'];?></h1>
+            <?php
+                if(in_array($_SESSION['uid'], array_column($_SESSION['admins'], 'uid')))  {
+                    echo "<h3>Admin!</h3>";
+                } else {
+                    echo "<h3>Not Admin!</h3>";
+                }
+            ?>
             <div class="row center">
                 <?php include("getEventsTable.php");?>
             </div>

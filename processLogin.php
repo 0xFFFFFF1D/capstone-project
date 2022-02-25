@@ -24,9 +24,10 @@ if($loggedIn) {
     $_SESSION['first_name'] = $loggedIn['first_name'];
 
     $admins = mysqli_query($api -> conn, "SELECT u.uid, u.first_name, u.last_name FROM users u, admins a WHERE u.uid = a.uid");
+
     $_SESSION['admins'] = array();
     while($row = $admins -> fetch_assoc()) {
-        $_SESSION['admins'] += $row;
+        array_push($_SESSION['admins'], $row);
     }
 
     $api -> disconnect();
