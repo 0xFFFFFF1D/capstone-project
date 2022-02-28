@@ -1,4 +1,4 @@
-<?php $title="Schedule"; include("template/base_header.php") ?>
+<?php session_start(); $title="Schedule"; include("template/base_header.php") ?>
 
 <div class="container mainContainer" style="padding-top: 0">
         <div class="row valign-wrapper">
@@ -23,8 +23,13 @@
             <div class="row center">
                 <div class="input-field col s4">
                     <select name="type" id="type" onchange="changeForm()">
-                        <option value="1">Mirza</option>
-                        <option value="2">Riley</option>
+                        <?php
+                            var_dump($_SESSION);
+                            $i = 0;
+                            while($row = $_SESSION['admins'][$i]) {
+                                ?> <option value='<?php echo $row['uid'];?>'> <?php echo $_SESSION['admins'][$i++]['first_name'] . "</option>";
+                            }
+                        ?>
                     </select>
                     <label for="type">
                         With whom are you scheduling?
