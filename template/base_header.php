@@ -29,7 +29,11 @@
 
     <!-- This is for mobile support -->
     <ul id="nav-mobile" class="sidenav">
-        <li><a id="logo-container" href="index.php" class="brand-logo header-font">AprilScheduler</a></li>
+        <li><a id="logo-container" href="index.php">AprilScheduler Home</a></li>
+        <?php if(isset($_SESSION['uid'])) {
+                echo "<li><div class=\"divider\"></div></li>";
+                echo '<li><a href="logout.php">Logout</a></li>';
+        }?>
     </ul>
     <a href="#" data-target="nav-mobile" class="sidenav-trigger"><i class="material-icons">menu</i></a>
   </div>
