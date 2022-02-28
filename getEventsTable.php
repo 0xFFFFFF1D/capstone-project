@@ -3,6 +3,13 @@ if (!isset($_SESSION)) {
     session_start();
 }
 
+if(in_array($_SESSION['uid'], array_column($_SESSION['admins'], 'uid')))  {
+    $is_admin = TRUE;
+} else {
+    $is_admin = FALSE;
+}
+
+
 
 require_once("api.php");
 
@@ -56,6 +63,12 @@ while($row = $result -> fetch_assoc()) {
     }
     else {
         echo "<td>" . $row['address'] . "</td>";
+    }
+
+    if ($is_admin) {
+        echo "<td><button class=\"btn waves-effect waves-light april-orange\" type=\"submit\">"
+            ."<i class=\"material-icons\">edit</i>"
+            ."</button></td>";
     }
     echo "</tr>";
 }
