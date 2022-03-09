@@ -66,7 +66,7 @@ while($row = $result -> fetch_assoc()) {
     }
 
     if ($is_admin) {
-        echo "<td><button class=\"btn waves-effect waves-light april-orange\" type=\"submit\">"
+        echo "<td><button class=\"btn-floating btn waves-effect waves-light april-orange\" type=\"submit\">"
             ."<i class=\"material-icons\">edit</i>"
             ."</button></td>";
     }
