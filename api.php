@@ -122,4 +122,21 @@ class AprilInstituteScheduler_API
 
         return $result -> fetch_assoc();
     }
+
+    public function addEvent($type, $scheduled_with, $scheduled_date, $scheduled_time, $description) {
+        $sql = "INSERT INTO events (type_id, is_virtual, date, address, description)
+                VALUES(?, ?, ?, ?, ?)";
+
+        $statement = $this -> conn -> prepare($sql);
+
+        if (!$statement) {
+            throw new Exception($statement->error);
+        }
+
+        $statement -> bind_param("iisss", $type, );
+        $statement -> execute();
+        $result = $statement -> get_result();
+
+        return $result;
+    }
 }

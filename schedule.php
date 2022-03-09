@@ -22,7 +22,7 @@
         <form class ="col s12" method="POST" action="processSchedule.php?type=2">
             <div class="row center">
                 <div class="input-field col s4">
-                    <select name="type" id="type" onchange="changeForm()">
+                    <select name="scheduled_with" id="scheduled_with" onchange="changeForm()">
                         <?php
                             var_dump($_SESSION);
                             $i = 0;
