@@ -1,3 +1,4 @@
+<?php session_start();?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -24,7 +25,10 @@
     <ul class="right hide-on-med-and-down">
         <?php if(isset($_SESSION['uid'])) {
                 echo '<li><a href="logout.php">Logout</a></li>';
-        }?>
+               }
+               if($_SESSION['isAdmin']) {
+                   echo '<li><a href="createEvent.php">Create</a></li>';
+               }?>
     </ul>
 
     <!-- This is for mobile support -->

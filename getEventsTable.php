@@ -3,13 +3,7 @@ if (!isset($_SESSION)) {
     session_start();
 }
 
-if(in_array($_SESSION['uid'], array_column($_SESSION['admins'], 'uid')))  {
-    $is_admin = TRUE;
-} else {
-    $is_admin = FALSE;
-}
-
-
+$is_admin = $_SESSION['isAdmin'];
 
 require_once("api.php");
 
@@ -20,7 +14,7 @@ $sql = "SELECT events.*
         FROM events, xref_users_events 
         WHERE events.id = xref_users_events.event_id 
         AND xref_users_events.user_id = ?
-        AND events.date > CURDATE()";
+        AND events.date >= CURDATE()";
 $statement = $api -> conn -> prepare($sql);
 
 if(!$statement) {
@@ -35,6 +29,7 @@ $result = $statement -> get_result();
 echo "<table class=\"highlight responsive-table\">
     <thead>
         <tr>
+        <th>Name</th>
         <th>Date & Time</th>
         <th>Type</th>
         <th>Scheduled with</th>
@@ -51,6 +46,10 @@ echo "<tbody>";
 while($row = $result -> fetch_assoc()) {
     $type = $api -> getTypeFromTypeID($row['type_id']);
     echo "<tr>";
+    if($row['type_id'] == 1) {
+        echo "<td>Appointment</td>";
+    }
+    else echo "<td>" . $row['name'] . "</td>";
     echo "<td>" . $row['date'] . "</td>";
     echo "<td>" . $type['type'] . "</td>";
 

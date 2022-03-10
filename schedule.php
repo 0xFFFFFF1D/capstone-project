@@ -1,4 +1,4 @@
-<?php session_start(); $title="Schedule"; include("template/base_header.php") ?>
+<?php session_start(); $title="Schedule"; include("template/base_header.php"); require_once("api.php"); ?>
 
 <div class="container mainContainer" style="padding-top: 0">
         <div class="row valign-wrapper">
@@ -8,9 +8,9 @@
 
             <div class="input-field col s6">
                 <select name="type" id="type" onchange="changeForm()">
-                    <option value="" selected disabled> --- CHOOSE AN OPTION ---</option>
-                    <option value="1">Event</option>
-                    <option value="2">Appointment</option>
+                    <option value="" disabled selected>--What are you scheduling for?--</option>
+                    <option value="2">Event</option>
+                    <option value="1">Appointment</option>
                 </select>
                 <label for="type">
                     Are you scheduling an appointment or RSVPing for an event?
@@ -18,7 +18,7 @@
             </div>
         </div>
 
-    <div class="row" id="event_form_div" style="display: none">
+    <div class="row" id="appointment_form_div" style="display: none">
         <form class ="col s12" method="POST" action="processSchedule.php?type=1">
             <div class="row center">
                 <div class="input-field col s4">
@@ -30,7 +30,7 @@
                             }
                         ?>
                     </select>
-                    <label for="type">
+                    <label for="scheduled_with">
                         With whom are you scheduling?
                     </label>
                 </div>
@@ -63,14 +63,14 @@
         </form>
     </div>
 
-    <div class="row" id="appointment_form_div" style="display: none">
+    <div class="row" id="event_form_div" style="display: none">
         <form class ="col s12" method="POST" action="processSchedule.php?type=2">
             <select name="event_id">
                 <option value="" selected disabled>--Choose an Event--</option>
                 <?php 
                     require_once("api.php");
                     $api = new AprilInstituteScheduler_API(); $api -> connect();
-                    $events = mysqli_query($api -> conn, "SELECT * FROM events WHERE type_id = 2");
+                    $events = mysqli_query($api -> conn, "SELECT * FROM events WHERE type_id = 2 AND date >= CURDATE()");
                     while($row = $events->fetch_assoc()){
                         $numPpl = $api -> getNumUsersInEvent($row['id']);
                         if($numPpl < $row['capacity']) {
@@ -79,6 +79,7 @@
                     }
                 $api -> disconnect();?>
             </select>
+            <label for="event_id">Event</label>
             <div class="row center">
                 <div class="col s4">
                     <button type="submit" class="btn-large waves-effect waves-light april-blue">
