@@ -8,8 +8,9 @@
 
             <div class="input-field col s6">
                 <select name="type" id="type" onchange="changeForm()">
-                    <option value="1" <?php if ($event_type == "Event") echo "selected"; ?> >Event</option>
-                    <option value="2" <?php if ($event_type == "Appointment") echo "selected"; ?>>Appointment</option>
+                    <option value="" selected disabled> --- CHOOSE AN OPTION ---</option>
+                    <option value="1">Event</option>
+                    <option value="2">Appointment</option>
                 </select>
                 <label for="type">
                     Are you scheduling an appointment or RSVPing for an event?
