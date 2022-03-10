@@ -8,9 +8,8 @@
 
             <div class="input-field col s6">
                 <select name="type" id="type" onchange="changeForm()">
-                    <option value="" disabled selected>--What are you scheduling for?--</option>
-                    <option value="1">Event</option>
-                    <option value="2">Appointment</option>
+                    <option value="1" <?php if ($event_type == "Event") echo "selected"; ?> >Event</option>
+                    <option value="2" <?php if ($event_type == "Appointment") echo "selected"; ?>>Appointment</option>
                 </select>
                 <label for="type">
                     Are you scheduling an appointment or RSVPing for an event?
@@ -99,6 +98,7 @@
             autoClose: false, // automatic close timepicker
         });
     });
+    
 
     $(document).ready(function(){
         $('select').formSelect();

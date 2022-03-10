@@ -5,7 +5,7 @@ if(isset($_SESSION['uid'])) {
     $title="Home"; include("template/base_header.php");?>
     <div class="container" id="index-banner">
         <div class="section col">
-            <h1 class="header center april-orange-text header-font">Welcome <?php echo $_SESSION['first_name'];?></h1>
+            <h1 class="header center april-orange-text header-font">Welcome, <?php echo $_SESSION['first_name'];?></h1>
             
             <div class="row center">
                 <?php include("getEventsTable.php");?>
@@ -17,11 +17,6 @@ if(isset($_SESSION['uid'])) {
 
         </div>
     </div>
-   <?php
-    if($is_admin) {
-        include("template/modal.html");
-    }
-    ?>
 <?php
 include("template/base_footer.php");
 }

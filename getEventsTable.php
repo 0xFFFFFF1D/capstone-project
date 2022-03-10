@@ -37,8 +37,11 @@ echo "<table class=\"highlight responsive-table\">
         <th>Date & Time</th>
         <th>Type</th>
         <th>Scheduled with</th>
-        <th>Location</th>
-        </tr>
+        <th>Location</th>";
+if ($is_admin) {
+    echo "<th>Edit</th>";
+}
+echo "</tr>
     </thead>";
 
 echo "<tbody>";
@@ -66,9 +69,10 @@ while($row = $result -> fetch_assoc()) {
     }
 
     if ($is_admin) {
-        echo "<td><a href=\"#modal1\" id=\"adminEdit\"class=\"btn modal-trigger waves-effect waves-light april-orange\">
+        echo "<td><form method=\"POST\" action=\"editEvent.php\">
+            <button type=\"submit\" id=\"adminEdit\"class=\"btn modal-trigger waves-effect waves-light april-orange\">
             <i class=\"material-icons\">edit</i>
-            </a></td>";
+            </button></form></td>";
     }
     echo "</tr>";
 }
