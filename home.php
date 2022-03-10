@@ -17,7 +17,11 @@ if(isset($_SESSION['uid'])) {
 
         </div>
     </div>
-
+   <?php
+    if($is_admin) {
+        include("template/modal.html");
+    }
+    ?>
 <?php
 include("template/base_footer.php");
 }

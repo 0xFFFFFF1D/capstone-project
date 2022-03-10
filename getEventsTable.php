@@ -66,9 +66,9 @@ while($row = $result -> fetch_assoc()) {
     }
 
     if ($is_admin) {
-        echo "<td><button class=\"btn waves-effect waves-light april-orange\" type=\"submit\">
+        echo "<td><a href=\"#modal1\" id=\"adminEdit\"class=\"btn modal-trigger waves-effect waves-light april-orange\">
             <i class=\"material-icons\">edit</i>
-            </button></td>";
+            </a></td>";
     }
     echo "</tr>";
 }
@@ -79,3 +79,5 @@ echo "</table>";
 $api -> disconnect();
 // exit();
 return;
+
+?>
