@@ -21,7 +21,6 @@
 </footer>
 
 </body>
-<!--  Scripts-->
 
 
 </html>

@@ -3,6 +3,13 @@ if (!isset($_SESSION)) {
     session_start();
 }
 
+if(in_array($_SESSION['uid'], array_column($_SESSION['admins'], 'uid')))  {
+    $is_admin = TRUE;
+} else {
+    $is_admin = FALSE;
+}
+
+
 
 require_once("api.php");
 
@@ -12,7 +19,8 @@ $api -> connect();
 $sql = "SELECT events.* 
         FROM events, xref_users_events 
         WHERE events.id = xref_users_events.event_id 
-        AND xref_users_events.user_id = ?";
+        AND xref_users_events.user_id = ?
+        AND events.date > CURDATE()";
 $statement = $api -> conn -> prepare($sql);
 
 if(!$statement) {
@@ -31,7 +39,11 @@ echo "<table class=\"highlight responsive-table\">
         <th>Type</th>
         <th>Scheduled with</th>
         <th>Location</th>
-        </tr>
+        <th>Description</th>";
+if ($is_admin) {
+    echo "<th>Edit</th>";
+}
+echo "</tr>
     </thead>";
 
 echo "<tbody>";
@@ -57,6 +69,25 @@ while($row = $result -> fetch_assoc()) {
     else {
         echo "<td>" . $row['address'] . "</td>";
     }
+
+    echo "<td>" . $row['description'] . "</td>";
+
+    if ($is_admin) {
+        echo '<td><form method="POST" action="editEvent.php">';
+        if ($type['type'] === "Appointment") {
+            echo '<input type="hidden" name="scheduled_with_uid" value="' . $scheduled_with['uid'] . '">';
+        } else {
+            echo '<input type="hidden" name="scheduled_with_uid" value="N/A">'; 
+        }
+        echo '<input type="hidden" name="date" value="'.$row['date'].'">
+            <input type="hidden" name="description" value="'.$row['description'].'">
+            <input type="hidden" name="event_id" value="'.$row['id'].'">
+            <input type="hidden" name="type" value="'.$type['type'].'">
+            <button type="submit" id="adminEdit"class="btn modal-trigger waves-effect waves-light april-orange">
+            <i class="material-icons">edit</i>
+            </button></form></td>';
+            
+    }
     echo "</tr>";
 }
 
@@ -66,3 +97,5 @@ echo "</table>";
 $api -> disconnect();
 // exit();
 return;
+
+?>

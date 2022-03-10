@@ -1,4 +1,5 @@
 <?php $title="Signup"; include("template/base_header.php"); ?>
+    
     <div class="container">
         <section>
             <form action="processSignup.php?" method="POST">
@@ -29,16 +30,19 @@
 
                         <div class="row">
                             <div class="input-field col s6">
-                                <input name="password" id="password" type="password" class="validate" required>
+                                <input name="password" id="password" type="password" onkeyup="check();" class="validate" required>
+                                <meter max="4" id="password-strength-meter"></meter> 
                                 <label for="password">Password</label>
+                                <span class="helper-text" id="password-strength-text"></p>
                             </div>
                             <div class="input-field col s6">
-                                <input name="confirmPassword" id="confirmPassword" type="password" class="validate" required>
+                                <input name="confirmPassword" id="confirmPassword" type="password" onkeyup="check();" class="validate" required>
                                 <label for="confirmPassword">Confirm password</label>
+                                <span class="helper-text" id="confirm-password-text"></p>
                             </div>
                         </div>
                         <div class="row">
-                            <button class="btn waves-effect waves-light" type="submit" name="action">
+                            <button class="btn waves-effect waves-light" type="submit" name="action" id="submit_button">
                                 Submit<i class="material-icons right">send</i>
                             </button>
                         </div>
@@ -61,3 +65,46 @@
     </div>
     </div>
 <?php include("template/base_footer.php"); ?>
+<script type="text/javascript" src="js/zxcvbn.js"></script>
+<script> 
+    var pass = document.getElementById('password');
+    var confirm_pass = document.getElementById('confirmPassword');
+    var meter = document.getElementById('password-strength-meter');
+    var text = document.getElementById('password-strength-text');
+
+    var strength = {
+        0: "Worst",
+        1: "Bad",
+        2: "Weak",
+        3: "Good",
+        4: "Strong"
+    }
+
+    var check = function() {
+        if (pass.value == confirm_pass.value && pass.value != "") {
+            document.getElementById('confirm-password-text').innerHTML = 'Passwords match!'
+        } else {
+            document.getElementById('confirm-password-text').innerHTML = 'Passwords do not match!'
+        }
+    }
+    function update_button() {
+        var val = password.value;
+        var result = zxcvbn(val);
+
+        meter.value = result.score;
+
+        if (val !== "") {
+            text.innerHTML = "Strength: " + strength[result.score] + ". " + result.feedback.warning + " " + result.feedback.suggestions 
+        } else {
+            text.innerHTML = "";
+        }
+
+        if (result.score >= 3 && pass.value == confirm_pass.value) {
+            document.getElementById('submit_button').disabled = false;
+        } else {
+            document.getElementById('submit_button').disabled = true;
+        }
+    }
+    pass.addEventListener('keyup', update_button);
+    confirm_pass.addEventListener('keyup', update_button);
+</script>

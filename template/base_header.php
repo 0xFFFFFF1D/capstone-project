@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
     <title><?php echo $title; ?></title>
 
-  <!-- CSS  -->
+    <!-- CSS  -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
     <link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
@@ -19,17 +19,23 @@
 
 <body>
 <nav class="april-orange" role="navigation">
-    <div class="nav-wrapper container">
-        <a id="logo-container" href="home.php" class="brand-logo header-font">AprilScheduler</a>
-        <ul class="right hide-on-med-and-down">
-            <li><a href="logout.php">Logout</a></li>
-        </ul>
+  <div class="nav-wrapper container">
+    <a id="logo-container" href="home.php" class="brand-logo header-font">AprilScheduler</a>
+    <ul class="right hide-on-med-and-down">
+        <?php if(isset($_SESSION['uid'])) {
+                echo '<li><a href="logout.php">Logout</a></li>';
+        }?>
+    </ul>
 
-        <!-- This is for mobile support -->
-        <ul id="nav-mobile" class="sidenav">
-            <li><a id="logo-container" href="index.php" class="brand-logo header-font">AprilScheduler</a></li>
-        </ul>
-        <a href="#" data-target="nav-mobile" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+    <!-- This is for mobile support -->
+    <ul id="nav-mobile" class="sidenav">
+        <li><a id="logo-container" href="index.php">AprilScheduler Home</a></li>
+        <?php if(isset($_SESSION['uid'])) {
+                echo "<li><div class=\"divider\"></div></li>";
+                echo '<li><a href="logout.php">Logout</a></li>';
+        }?>
+    </ul>
+    <a href="#" data-target="nav-mobile" class="sidenav-trigger"><i class="material-icons">menu</i></a>
   </div>
 </nav>
 <main>
