@@ -124,7 +124,7 @@ class AprilInstituteScheduler_API
         return $result -> fetch_assoc();
     }
 
-    public function addEvent($type, $scheduled_with, $is_virtual, $date, $description, $address) {
+    public function addAppointment($type, $scheduled_with, $is_virtual, $date, $description, $address) {
         if($is_virtual == 1) {
             $address = "https://us02web.zoom.us/j/3847814790";
         }
@@ -181,7 +181,7 @@ class AprilInstituteScheduler_API
     }
 
     public function getNumUsersInEvent($event_id) {
-        $sql = "SELECT * FROM xref_users_events WHERE event_id = $event_id";
+        $sql = "SELECT * FROM xref_users_events WHERE event_id = ?";
 
         $statement = $this -> conn -> prepare($sql);
 
@@ -193,5 +193,44 @@ class AprilInstituteScheduler_API
         $result = $statement -> get_result();
 
         return $result -> num_rows;
+    }
+
+    public function createEvent($isVirtual, $date, $address, $description, $capacity, $name) {
+        if($isVirtual == 1) {
+            $address = "https://us02web.zoom.us/j/3847814790";
+        }
+
+        $sql = "INSERT INTO events (type_id, is_virtual, date, address, description, capacity, name)
+                VALUES(2, ?, ?, ?, ?, ?, ?)";
+
+        $statement = $this -> conn -> prepare($sql);
+
+        if (!$statement) {
+            throw new Exception($statement->error);
+        }
+
+        $statement -> bind_param("isssis", $isVirtual, $date, $address, $description, $capacity, $name);
+        $statement -> execute();
+        $result = $statement -> get_result();
+        $ret = mysqli_insert_id($this->conn);
+
+        return $ret;
+    }
+
+    public function addToEvent($event_id, $uid) {
+        $sql = "INSERT INTO xref_users_events (user_id, event_id)
+                VALUES(?, ?)";
+
+        $statement = $this -> conn -> prepare($sql);
+
+        if (!$statement) {
+            throw new Exception($statement->error);
+        }
+
+        $statement -> bind_param("ii", $uid, $event_id);
+        $statement -> execute();
+        $result = $statement -> get_result();
+
+        return $uid;
     }
 }

@@ -30,6 +30,11 @@ if($loggedIn) {
         array_push($_SESSION['admins'], $row);
     }
 
+    if(in_array($_SESSION['uid'], array_column($_SESSION['admins'], 'uid'))) {
+        $_SESSION['isAdmin'] = TRUE;
+    }
+    else $_SESSION['isAdmin'] = FALSE;
+
     $api -> disconnect();
     header("Location: home.php");
 }
