@@ -61,6 +61,7 @@ class AprilInstituteScheduler_API
         }
     }
 
+
     public function verifyLogIn($email, $password) {
         $sql = "SELECT * FROM users WHERE email = ?";
 
