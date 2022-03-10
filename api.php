@@ -123,4 +123,59 @@ class AprilInstituteScheduler_API
 
         return $result -> fetch_assoc();
     }
+
+    public function addEvent($type, $scheduled_with, $is_virtual, $date, $description, $address) {
+        if($is_virtual == 1) {
+            $address = "https://us02web.zoom.us/j/3847814790";
+        }
+
+        $sql = "INSERT INTO events (type_id, is_virtual, date, address, description)
+                VALUES(?, ?, ?, ?, ?)";
+
+        $statement = $this -> conn -> prepare($sql);
+
+        if (!$statement) {
+            throw new Exception($statement->error);
+        }
+
+        $statement -> bind_param("iisss", $type, $is_virtual, $date, $address, $description);
+        $statement -> execute();
+        $result = $statement -> get_result();
+        $ret = mysqli_insert_id($this->conn);
+
+        return $ret;
+    }
+
+    public function addXref($uid, $event_id) {
+        $sql = "INSERT INTO xref_users_events (user_id, event_id)
+                VALUES(?, ?)";
+
+        $statement = $this -> conn -> prepare($sql);
+
+        if (!$statement) {
+            throw new Exception($statement->error);
+        }
+
+        $statement -> bind_param("ii", $uid, $event_id);
+        $statement -> execute();
+        $result = $statement -> get_result();
+
+        return $result;
+    }
+
+    public function getNumUsersInEvent($event_id) {
+        $sql = "SELECT * FROM xref_users_events WHERE event_id = $event_id)";
+
+        $statement = $this -> conn -> prepare($sql);
+
+        if (!$statement) {
+            throw new Exception($statement->error);
+        }
+
+        $statement -> bind_param("i", $event_id);
+        $statement -> execute();
+        $result = $statement -> get_result();
+
+        return $result -> num_rows();
+    }
 }

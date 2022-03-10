@@ -18,12 +18,11 @@
         </div>
 
     <div class="row" id="event_form_div" style="display: none">
-        <form class ="col s12" method="POST" action="processSchedule.php?type=2">
+        <form class ="col s12" method="POST" action="processSchedule.php?type=1">
             <div class="row center">
                 <div class="input-field col s4">
-                    <select name="type" id="type" onchange="changeForm()">
+                    <select name="scheduled_with" id="scheduled_with">
                         <?php
-                            var_dump($_SESSION);
                             $i = 0;
                             while($row = $_SESSION['admins'][$i]) {
                                 ?> <option value='<?php echo $row['uid'];?>'> <?php echo $_SESSION['admins'][$i++]['first_name'] . "</option>";
@@ -64,9 +63,18 @@
     </div>
 
     <div class="row" id="appointment_form_div" style="display: none">
-        <form class ="col s12" method="POST" action="processSchedule.php?type=1">
-            <select>
-                <option> </option>
+        <form class ="col s12" method="POST" action="processSchedule.php?type=2">
+            <select name="event_id">
+                <option value="" selected disabled>--Choose an Event--</option>
+                <?php $api = new AprilInstituteScheduler_API(); $api -> connect();
+                    $events = mysqli_query($api -> conn, "SELECT * FROM events WHERE type = 2");
+                    while($row = $events->fetch_assoc()){
+                        $numPpl = $api -> getNumUsersInEvent($row['id']);
+                        if($numPpl < $row['capacity']) {
+                            echo "<option value='" . $row['id'] . "'>" . $row['name'] . "</option>";
+                        }
+                    }
+                $api -> disconnect();?>
             </select>
             <div class="row center">
                 <div class="col s4">
@@ -94,7 +102,7 @@
         var elems = document.querySelectorAll('.timepicker');
         var instances = M.Timepicker.init(elems, {
             defaultTime: 'now', // Set default time: 'now', '1:30AM', '16:30'
-            twelveHour: true, //Use AM/PM or 24-hour format
+            twelveHour: false, //Use AM/PM or 24-hour format
             autoClose: false, // automatic close timepicker
         });
     });
