@@ -1,4 +1,5 @@
 <?php
+session_start();
 $type = htmlentities($_REQUEST['type']);
 $scheduled_with = htmlentities($_REQUEST['scheduled_with']);
 $scheduled_date = htmlentities($_REQUEST['date']);
@@ -12,8 +13,11 @@ require_once("api.php");
 $api = new AprilInstituteScheduler_API();
 $api -> connect();
 
-$result = $api -> addEvent($type, $scheduled_with, $scheduled_date, $scheduled_time, $description);
+$result = $api -> addEvent($type, $scheduled_with, 1, $scheduled_date_time, $description, null);
 
+$api -> addXref($_SESSION['uid'], $result);
+$api -> addXref($scheduled_with, $result);
+$api -> disconnect();
 if(!empty($result)) {
     header("Location: home.php");
 }
