@@ -67,8 +67,10 @@
         <form class ="col s12" method="POST" action="processSchedule.php?type=2">
             <select name="event_id">
                 <option value="" selected disabled>--Choose an Event--</option>
-                <?php $api = new AprilInstituteScheduler_API(); $api -> connect();
-                    $events = mysqli_query($api -> conn, "SELECT * FROM events WHERE type = 2");
+                <?php 
+                    require_once("api.php");
+                    $api = new AprilInstituteScheduler_API(); $api -> connect();
+                    $events = mysqli_query($api -> conn, "SELECT * FROM events WHERE type_id = 2");
                     while($row = $events->fetch_assoc()){
                         $numPpl = $api -> getNumUsersInEvent($row['id']);
                         if($numPpl < $row['capacity']) {
