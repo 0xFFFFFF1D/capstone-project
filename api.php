@@ -146,6 +146,23 @@ class AprilInstituteScheduler_API
         return $ret;
     }
 
+    public function updateEvent($event_id, $scheduled_with, $date, $description) {
+        $sql_event = "UPDATE events SET date=?, description=? WHERE id=?";
+        // $sql_xref = "UPDATE xref_users_events SET user_id = ? WHERE "
+        // The above needs to be worked on to make sure that $scheduled_with actually works
+        $stmt = $this -> conn -> prepare($sql_event);
+
+        if (!$stmt) {
+            throw new Exception($stmt->error);
+        }
+
+        $stmt -> bind_param("ssi", $date, $description, $event_id);
+        $stmt -> execute();
+        $result = $stmt -> get_result();
+
+        return $result;
+    }
+
     public function addXref($uid, $event_id) {
         $sql = "INSERT INTO xref_users_events (user_id, event_id)
                 VALUES(?, ?)";
@@ -164,7 +181,7 @@ class AprilInstituteScheduler_API
     }
 
     public function getNumUsersInEvent($event_id) {
-        $sql = "SELECT * FROM xref_users_events WHERE event_id = $event_id)";
+        $sql = "SELECT * FROM xref_users_events WHERE event_id = $event_id";
 
         $statement = $this -> conn -> prepare($sql);
 
@@ -172,10 +189,9 @@ class AprilInstituteScheduler_API
             throw new Exception($statement->error);
         }
 
-        $statement -> bind_param("i", $event_id);
         $statement -> execute();
         $result = $statement -> get_result();
 
-        return $result -> num_rows();
+        return $result -> num_rows;
     }
 }
