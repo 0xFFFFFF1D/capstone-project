@@ -2,8 +2,8 @@
 session_start();
 $type = htmlentities($_REQUEST['type']);
 $scheduled_with = htmlentities($_REQUEST['scheduled_with']);
-$scheduled_date = htmlentities($_REQUEST['scheduled_date']);
-$scheduled_time = htmlentities($_REQUEST['scheduled_time']);
+$scheduled_date = htmlentities($_REQUEST['date']);
+$scheduled_time = htmlentities($_REQUEST['time']);
 $description = htmlentities($_REQUEST['info']);
 $event_id = htmlentities($_REQUEST['event_id']);
 
