@@ -94,6 +94,20 @@ meter {
   width: 100%;
 }
 
+.datepicker-date-display { background-color: #002A89; }
+.datepicker__day.picker__day--today { color: #002A89; }
+.datepicker__day--selected, .datepicker__day--selected:hover, .datepicker--focused .datepicker__day--selected {background-color: #002A89 !important;}
+.datepicker__close { color: #002A89 !important;}
+.datepicker__today { color: #002A89 !important;}
+.is-today {color: #002A89 !important;}
+.is-selected{background-color: #FA6600 !important;}
+
+.timepicker-tick:hover { background: #002A89 !important; }
+.timepicker-canvas line { stroke: #002A89 !important; }
+.timepicker-canvas-bearing { fill: #002A89 !important; }
+.timepicker-canvas-bg { fill: #002A89 !important; }
+.timepicker-digital-display{background-color: #002A89 !important;}
+
 meter[value="1"]::-webkit-meter-optimum-value { background: red; }
 meter[value="2"]::-webkit-meter-optimum-value { background: yellow; }
 meter[value="3"]::-webkit-meter-optimum-value { background: orange; }
