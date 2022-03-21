@@ -14,7 +14,8 @@ $sql = "SELECT events.*
         FROM events, xref_users_events 
         WHERE events.id = xref_users_events.event_id 
         AND xref_users_events.user_id = ?
-        AND events.date >= CURDATE()";
+        AND events.date >= CURDATE()
+        AND events";
 $statement = $api -> conn -> prepare($sql);
 
 if(!$statement) {
