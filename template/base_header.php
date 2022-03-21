@@ -21,13 +21,17 @@
 <body>
 <nav class="april-orange" role="navigation">
   <div class="nav-wrapper container">
-    <a id="logo-container" href="home.php" class="brand-logo header-font">AprilScheduler</a>
+    <a id="logo-container" href="home.php" class="brand-logo header-font">
+        <img src="April_A.png" alt="April A" width="355" height="65">
+        AprilScheduler
+    </a>
     <ul class="right hide-on-med-and-down">
         <?php if(isset($_SESSION['uid'])) {
                 echo '<li><a href="logout.php">Logout</a></li>';
                }
                if($_SESSION['isAdmin']) {
                    echo '<li><a href="createEvent.php">Create</a></li>';
+                   echo '<li><a href="viewEvents.php">Events</a></li>';
                }?>
     </ul>
 

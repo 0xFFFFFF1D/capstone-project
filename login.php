@@ -2,7 +2,7 @@
 
     <div class="container mainContainer">
         <div class="row">
-            <form class="col s12" action="processLogin.php?" method="POST">
+            <form class="col s12" action="processLogin.php?" id="loginForm" method="POST">
                 <?php if(isset($_GET['error'])){?>
                     <p class="error"><?php echo $_GET['error']; ?></p>
                 <?php }?>
@@ -19,12 +19,12 @@
                     </div>
                 </div>
                 <div class="row">
-                    <button class="btn waves-effect waves-light" type="submit" name="action">
+                    <button class="btn waves-effect waves-light" name="action" type="submit"">
                         Submit<i class="material-icons right">send</i>
                     </button>
                 </div>
             </form>
         </div>
     </div>
-
 <?php include("template/base_footer.php"); ?>
+
