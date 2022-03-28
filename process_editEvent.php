@@ -1,9 +1,9 @@
 <?php
-$date = $_POST['date'];
-$time = $_POST['time'];
-$description = $_POST['info'];
+$date = htmlentities($_POST['date']);
+$time = htmlentities($_POST['time']);
+$description = htmlentities($_POST['info']);
 $event_id = (int)$_POST['event_id'];
-$scheduled_with = $_POST['scheduled_with'];
+$scheduled_with = htmlentities($_POST['scheduled_with']);
 
 $date_array = explode('-', $date);
 $date = $date_array[2] . '-' . $date_array[0] . '-' . $date_array[1] . 'T' . substr($time, 0, 5);
