@@ -189,6 +189,7 @@ class AprilInstituteScheduler_API
             throw new Exception($statement->error);
         }
 
+        $statement -> bind_param("i", $event_id);
         $statement -> execute();
         $result = $statement -> get_result();
 
