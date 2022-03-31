@@ -8,7 +8,14 @@ if(isset($_SESSION['uid'])) {
             <h1 class="header center april-orange-text header-font">Welcome, <?php echo $_SESSION['first_name'];?></h1>
             
             <div class="row center">
-                <?php include("getEventsTable.php");?>
+                <?php 
+                    $is_admin = $_SESSION['isAdmin'];
+                    if ($is_admin) {
+                        include("getAdminTable.php");
+                    } else {
+                        include("getEventsTable.php");
+                    }
+                ?>
             </div>
             <div class="row center">
                 <a class="btn-floating btn-large waves-effect waves-light april-orange" href="schedule.php"><i class="material-icons">add</i></a>

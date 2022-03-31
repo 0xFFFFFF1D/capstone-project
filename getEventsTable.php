@@ -25,6 +25,10 @@ $statement -> bind_param("i", $_SESSION['uid']);
 $statement -> execute();
 $result = $statement -> get_result();
 
+if ($is_admin) {
+    var_dump($api -> getUsersScheduledWithAdmin($_SESSION['uid']));
+}
+
 
 echo "<table class=\"highlight responsive-table\">
     <thead>

@@ -33,12 +33,12 @@
                                 <input name="password" id="password" type="password" onkeyup="check();" class="validate" required>
                                 <meter max="4" id="password-strength-meter"></meter> 
                                 <label for="password">Password</label>
-                                <span class="helper-text" id="password-strength-text"></p>
+                                <span class="helper-text" id="password-strength-text"></span>
                             </div>
                             <div class="input-field col s6">
                                 <input name="confirmPassword" id="confirmPassword" type="password" onkeyup="check();" class="validate" required>
                                 <label for="confirmPassword">Confirm password</label>
-                                <span class="helper-text" id="confirm-password-text"></p>
+                                <span class="helper-text" id="confirm-password-text"></span>
                             </div>
                         </div>
                         <div class="row">
