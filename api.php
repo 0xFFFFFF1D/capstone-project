@@ -234,4 +234,42 @@ class AprilInstituteScheduler_API
 
         return $uid;
     }
+    public function getUsersEventsWithAdmin($user_id, $admin_id) {
+        /**
+         * Given a user and an admin, get all events that the user is registered
+         * to that the admin manages
+         */
+        $sql = "SELECT e.description
+            FROM
+                xref_users_events AS x,
+                users AS u,
+                events AS e";
+    }
+
+    public function getUsersScheduledWithAdmin($admin_id) {
+        /** 
+         * Gets all of xref_users_events, and then filters out the ones with
+         * $admin_id, and then filters by only the events that $admin_id
+         * is managing
+         */
+        $sql = "SELECT DISTINCT x.user_id, u.first_name, u.last_name
+            FROM
+                xref_users_events AS x,
+                users AS u
+            WHERE
+                x.user_id != ?
+                AND x.user_id = u.uid
+                AND x.event_id IN (SELECT event_id FROM xref_users_events AS x WHERE x.user_id = ?)
+            ORDER BY u.last_name, u.first_name;";
+		
+        $statement = $this -> conn -> prepare($sql);
+
+        if (!$statement) throw new Exception($statement->error);
+
+        $statement -> bind_param("ii", $admin_id, $admin_id);
+        $statement -> execute();
+        $result = $statement -> get_result();
+
+        return $result;
+    }
 }
