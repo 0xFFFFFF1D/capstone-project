@@ -20,10 +20,16 @@
 <body>
 <nav class="april-orange" role="navigation">
   <div class="nav-wrapper container">
-    <a id="logo-container" href="home.php" class="brand-logo header-font">AprilScheduler</a>
+    <a id="logo-container" href="home.php" class="brand-logo header-font">
+        <div class="valign-wrapper" id="nav_text">
+        <img src="img/April_A_White.png" alt="April A White" width="55" height="55">
+         &nbsp;&nbsp;AprilScheduler
+        </div>
+    </a>
     <ul class="right hide-on-med-and-down">
         <?php if(isset($_SESSION['uid'])) {
                 echo '<li><a href="logout.php">Logout</a></li>';
+                echo '<li><a href="viewEvents.php">Events</a></li>';
                }
                if($_SESSION['isAdmin']) {
                    echo '<li><a href="createEvent.php">Create</a></li>';

@@ -4,17 +4,17 @@ if (!isset($_SESSION)) {
 }
 
 $is_admin = $_SESSION['isAdmin'];
-
 require_once("api.php");
 
 $api = new AprilInstituteScheduler_API();
 $api -> connect();
 
-$sql = "SELECT events.* 
+$sql = "SELECT events.id 
         FROM events, xref_users_events 
         WHERE events.id = xref_users_events.event_id 
         AND xref_users_events.user_id = ?
-        AND events.date >= CURDATE()";
+        AND events.date >= CURDATE()
+        AND events.type_id = 1";
 $statement = $api -> conn -> prepare($sql);
 
 if(!$statement) {
@@ -23,12 +23,11 @@ if(!$statement) {
 
 $statement -> bind_param("i", $_SESSION['uid']);
 $statement -> execute();
-$result = $statement -> get_result();
+$appointments_with_admin = $statement -> get_result();
 
-if ($is_admin) {
-    var_dump($api -> getUsersScheduledWithAdmin($_SESSION['uid']));
-}
-
+$sql2 = "SELECT user_id 
+         FROM xref_users_events as x
+         WHERE x.event_id IN ";
 
 echo "<table class=\"highlight responsive-table\">
     <thead>
