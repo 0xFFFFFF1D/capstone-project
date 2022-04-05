@@ -17,7 +17,7 @@ foreach($appointments_with_admin as $row) {
 var_dump($appts);
 echo "<br><br><br>";
 
-$sql2 = "SELECT x.user_id
+$sql2 = "SELECT distinct x.user_id
         FROM events, xref_users_events as x
         WHERE x.event_id IN 
               (SELECT events.id 
