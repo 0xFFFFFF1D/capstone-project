@@ -35,7 +35,7 @@ echo "</tr>
 
 echo "<tbody>";
 
-while($row = $appointments_with_admin -> fetch_assoc()) {
+while($row = $result -> fetch_assoc()) {
     $type = $api -> getTypeFromTypeID($row['type_id']);
     echo "<tr>";
     if($row['type_id'] == 1) {
