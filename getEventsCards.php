@@ -4,7 +4,7 @@ require_once('api.php');
 $api = new AprilInstituteScheduler_API();
 $api -> connect();
 
-$sql = "SELECT * FROM events WHERE type_id = 2";
+$sql = "SELECT * FROM events WHERE type_id = 2 AND events.date >= CURDATE()";
 $statement = $api -> conn -> prepare($sql);
 
 if(!$statement) {
