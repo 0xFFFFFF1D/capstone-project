@@ -15,6 +15,7 @@ $sql = "SELECT distinct u.*
               (SELECT events.id 
                 FROM events, xref_users_events as x
                 WHERE events.id = x.event_id 
+                AND events.date >= CURDATE()
                 AND x.user_id = {$_SESSION['uid']}
                 AND events.type_id = 1)
         AND x.user_id NOT IN (SELECT * FROM admins)
@@ -38,6 +39,7 @@ while($row = $users_scheduled_with_admin -> fetch_assoc()) { ?>
                 <?php $sql2 = "SELECT distinct events.*
                                 FROM events, xref_users_events as x
                                 WHERE x.user_id = {$row['uid']}
+                                AND events.date >= CURDATE()
                                 AND x.event_id = events.id
                                 ORDER BY events.id";
                     $appointments_for_user = mysqli_query($api->conn, $sql2);
@@ -49,7 +51,7 @@ while($row = $users_scheduled_with_admin -> fetch_assoc()) { ?>
                         <th>Date & Time</th>
                         <th>Location</th>
                         <th>Description</th>
-                        <th>Edit</th>>
+                        <th>Edit</th>
                         </tr>
                     </thead>
                     <tbody>
