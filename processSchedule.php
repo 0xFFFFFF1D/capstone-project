@@ -1,6 +1,6 @@
 <?php
 session_start();
-$type = htmlentities($_REQUEST['type']);
+$type = htmlentities($_REQUEST['eventType']);
 $scheduled_with = htmlentities($_REQUEST['scheduled_with']);
 $scheduled_date = htmlentities($_REQUEST['date']);
 $scheduled_time = htmlentities($_REQUEST['time']);
@@ -20,11 +20,12 @@ if($type == 1) {
     $api -> addXref($_SESSION['uid'], $result);
     $api -> addXref($scheduled_with, $result);
 }
-else if($type = 2) {
+else if($type == 2) {
     $result = $api->addToEvent($event_id, $_SESSION['uid']);
 }
 
 $api -> disconnect();
 if(!empty($result)) {
-    header("Location: home.php");
+    header("Location: home.php?paid=1");
+    exit();
 }
