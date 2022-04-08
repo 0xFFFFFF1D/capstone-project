@@ -15,6 +15,7 @@ $sql = "SELECT distinct u.*
               (SELECT events.id 
                 FROM events, xref_users_events as x
                 WHERE events.id = x.event_id 
+                AND events.date >= CURDATE()
                 AND x.user_id = {$_SESSION['uid']}
                 AND events.type_id = 1)
         AND x.user_id NOT IN (SELECT * FROM admins)
@@ -31,23 +32,24 @@ echo "<ul class='collapsible expandable'>";
 while($row = $users_scheduled_with_admin -> fetch_assoc()) { ?>
 
         <li>
-            <div class="collapsible-header"><i class="material-icons">person</i><?php echo $row['last_name'] . ", " . $row['first_name'];?></div>
+            <div class="collapsible-header"><i class="material-icons">person</i> <?php echo $row['last_name'] . ", " . $row['first_name'];?> </div>
             <div class="collapsible-body">
 
                 <?php $sql2 = "SELECT distinct events.*
                                 FROM events, xref_users_events as x
                                 WHERE x.user_id = {$row['uid']}
                                 AND x.event_id = events.id
+                                AND events.date >= CURDATE()
                                 ORDER BY events.id";
                         $appointments_for_user = mysqli_query($api->conn, $sql2);?>
 
-                <table class=\"highlight responsive-table\">
+                <table class="highlight responsive-table">
                     <thead>
                         <tr>
                         <th>Date & Time</th>
                         <th>Location</th>
                         <th>Description</th>
-                        <th>Edit</th>>
+                        <th>Edit</th>
                         </tr>
                     </thead>
                     <tbody>

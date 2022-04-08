@@ -40,6 +40,10 @@ if(!$_SESSION['isAdmin']) {
                 <input name="capacity" id="capacity" type="number" class="validate" required>
                 <label for="capacity">Capacity</label>
             </div>
+            <div class="input-field col s3">
+                <input name="price" id="price" type="number" class="validate" min="0" step="1" required>
+                <label for="price">Price</label>
+            </div>
         </div>
 
         <div class="row">

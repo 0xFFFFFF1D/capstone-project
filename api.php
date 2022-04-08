@@ -196,13 +196,13 @@ class AprilInstituteScheduler_API
         return $result -> num_rows;
     }
 
-    public function createEvent($isVirtual, $date, $address, $description, $capacity, $name) {
+    public function createEvent($isVirtual, $date, $address, $description, $capacity, $name, $price = 100) {
         if($isVirtual == 1) {
             $address = "https://us02web.zoom.us/j/3847814790";
         }
 
-        $sql = "INSERT INTO events (type_id, is_virtual, date, address, description, capacity, name)
-                VALUES(2, ?, ?, ?, ?, ?, ?)";
+        $sql = "INSERT INTO events (type_id, is_virtual, date, address, description, capacity, name, price)
+                VALUES(2, ?, ?, ?, ?, ?, ?, ?)";
 
         $statement = $this -> conn -> prepare($sql);
 
@@ -210,7 +210,7 @@ class AprilInstituteScheduler_API
             throw new Exception($statement->error);
         }
 
-        $statement -> bind_param("isssis", $isVirtual, $date, $address, $description, $capacity, $name);
+        $statement -> bind_param("isssisi", $isVirtual, $date, $address, $description, $capacity, $name, $price);
         $statement -> execute();
         $result = $statement -> get_result();
         $ret = mysqli_insert_id($this->conn);
