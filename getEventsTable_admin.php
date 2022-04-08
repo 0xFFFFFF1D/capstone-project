@@ -41,6 +41,7 @@ while($row = $users_scheduled_with_admin -> fetch_assoc()) { ?>
                                 WHERE x.user_id = {$row['uid']}
                                 AND events.date >= CURDATE()
                                 AND x.event_id = events.id
+                                AND events.date >= CURDATE()
                                 ORDER BY events.id";
                     $appointments_for_user = mysqli_query($api->conn, $sql2);
                 ?>
