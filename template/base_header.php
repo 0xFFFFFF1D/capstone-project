@@ -27,13 +27,16 @@
         </div>
     </a>
     <ul class="right hide-on-med-and-down">
-        <?php if(isset($_SESSION['uid'])) {
-                echo '<li><a href="logout.php">Logout</a></li>';
-                echo '<li><a href="viewEvents.php">Events</a></li>';
-               }
-               if($_SESSION['isAdmin']) {
-                   echo '<li><a href="createEvent.php">Create</a></li>';
-               }?>
+        <?php
+        if(isset($_SESSION['uid'])) {
+            echo '<li><a href="viewEvents.php">Events</a></li>';
+
+            if ($_SESSION['isAdmin']) {
+                echo '<li><a href="createEvent.php">Create</a></li>';
+            }
+
+            echo '<li><a href="logout.php">Logout</a></li>';
+        }?>
     </ul>
 
     <!-- This is for mobile support -->
