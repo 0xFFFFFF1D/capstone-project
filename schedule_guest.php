@@ -22,7 +22,7 @@
         <div class="row">
             <h2>Schedule as guest</h2>
         </div>
-        <form class="col s12">
+        <form class="col s12" method="POST" action="payment_guest.php?">
             <div class="row">
                 <div class="input-field col s4">
                     <input type="text" class="datepicker no-autoinit" name="date" id="date" placeholder="Please enter the date of the appointment" required>
@@ -44,7 +44,7 @@
                     <label style="font-size: 1.3em" for="lastName">First Name</label>
                 </div>
                 <text style="font-size: 2em; padding: 2em">Or</text>
-                <a href="login.html" id="download-button" class="btn-large waves-effect waves-light orange hoverable">Log In</a>
+                <a href="login.php" id="download-button" class="btn-large waves-effect waves-light orange hoverable">Log In</a>
             </div>
             <div class="row">
                 <div class="input-field col s4">
