@@ -14,7 +14,7 @@
     </script>
 
     <!--FORM-->
-    <form name="helcimForm" id="helcimForm" action="processCreditPurchase.php?" method="POST" class="col s12">
+    <form name="helcimForm" id="helcimForm" action="processCreditPurchase.php" method="POST" class="col s12">
         <!--RESULTS-->
         <div class="row">
             <div class="card red" id="helcimResultsCard" hidden>
@@ -37,10 +37,7 @@
         <input type="hidden" id="test" value="1">
 
         <!--PASSING POST INFORMATION-->
-        <input type="hidden" name="scheduled_with" value="<?php echo $_POST["scheduled_with"]; ?>">
-        <input type="hidden" name="date" value="<?php echo $_POST["date"]; ?>">
-        <input type="hidden" name="time" value="<?php echo $_POST["time"]; ?>">
-        <input type="hidden" name="info" value="<?php echo $_POST["info"]; ?>">
+        <input type="hidden" name="amountCredits" value="<?php echo $_REQUEST["amount"]; ?>">
 
         <!--CARD-INFORMATION--> 
         <div class="row">
@@ -83,7 +80,7 @@
         </div>
 
         <div class="row">
-            <input type="text" id="amount" value="100.00" disabled><br />
+            <input type="text" id="amount" value="<?php echo $_REQUEST["price"]; ?>" disabled><br />
         </div>
 
         <!--BUTTON--> 
