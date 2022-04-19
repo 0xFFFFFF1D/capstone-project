@@ -29,6 +29,7 @@
     <ul class="right hide-on-med-and-down">
         <?php
         if(isset($_SESSION['uid'])) {
+            echo '<li><a href="purchaseCredits.php">Credits</a></li>';
             echo '<li><a href="viewEvents.php">Events</a></li>';
 
             if ($_SESSION['isAdmin']) {

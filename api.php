@@ -124,13 +124,16 @@ class AprilInstituteScheduler_API
         return $result -> fetch_assoc();
     }
 
-    public function addAppointment($type, $scheduled_with, $is_virtual, $date, $description, $address) {
+    public function addAppointment($type, $scheduled_with, $is_virtual, $date, $description, $address, $uid) {
         if($is_virtual == 1) {
             $address = "https://us02web.zoom.us/j/3847814790";
         }
 
         $sql = "INSERT INTO events (type_id, is_virtual, date, address, description)
-                VALUES(?, ?, ?, ?, ?)";
+                VALUES(?, ?, ?, ?, ?);
+                UPDATE users
+                SET credits = credits - 1
+                WHERE uid = ?";
 
         $statement = $this -> conn -> prepare($sql);
 
@@ -138,7 +141,7 @@ class AprilInstituteScheduler_API
             throw new Exception($statement->error);
         }
 
-        $statement -> bind_param("iisss", $type, $is_virtual, $date, $address, $description);
+        $statement -> bind_param("iisssi", $type, $is_virtual, $date, $address, $description, $uid);
         $statement -> execute();
         $result = $statement -> get_result();
         $ret = mysqli_insert_id($this->conn);
@@ -271,5 +274,19 @@ class AprilInstituteScheduler_API
         $result = $statement -> get_result();
 
         return $result;
+    }
+
+    public function addCredits($uid, $amount) {
+        $sql = "UPDATE users
+                SET credits = credits + ?
+                WHERE uid = ?";
+
+        $statement = $this -> conn -> prepare($sql);
+
+        if (!$statement) throw new Exception($statement->error);
+
+        $statement -> bind_param("ii", $amount, $uid);
+        $statement -> execute();
+        $result = $statement -> get_result();
     }
 }
