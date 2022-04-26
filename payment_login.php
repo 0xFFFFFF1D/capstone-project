@@ -1,5 +1,5 @@
 <?php $title="Payment"; include("template/base_header.php"); ?>
-    <div class="contianer">
+    <div class="">
         <div class="row">
             <div class="col s12 m6 offset-m3">
                 <div class="card">

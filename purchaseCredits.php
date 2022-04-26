@@ -9,15 +9,15 @@ session_start();
 <div class="container">
     <div class="row">
         <a href="paymentPage.php?amount=4&price=700">
-            <img src="April_A.png">
+            <img src="img/4 Credits.jpg">
         </a>
 
         <a href="paymentPage.php?amount=6&price=1000">
-            <img src="April_A.png">
+            <img src="img/6 Credits.jpg">
         </a>
 
         <a href="paymentPage.php?amount=10&price=1500">
-            <img src="April_A.png">
+            <img src="img/10 Credits.jpg">
         </a>
     </div>
 </div>
