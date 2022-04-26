@@ -14,7 +14,7 @@
     </script>
 
     <!--FORM-->
-    <form name="helcimForm" id="helcimForm" action="processCreditPurchase.php" method="POST" class="col s12">
+    <form name="helcimForm" id="helcimForm" action="processCreditPurchase.php?" method="POST" class="col s12">
         <!--RESULTS-->
         <div class="row">
             <div class="card red" id="helcimResultsCard" hidden>
