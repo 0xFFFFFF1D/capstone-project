@@ -3,14 +3,26 @@ session_start();
 
 if(isset($_SESSION['uid'])) {
     $title="Home"; include("template/base_header.php");
-    if (isset($_REQUEST['paid'])) {
-        echo "<script>M.toast({html: 'You payment was processed successfully!'})</script>";
+    if ($_REQUEST['paid'] === 1) {
+        echo "<script>M.toast({html: 'Your payment was processed successfully! The credits have been added to your account.'})</script>";
+    }
+    else if ($_REQUEST['paid'] === 0) {
+        echo "<script>M.toast({html: 'Your payment was unable to be processed.'})</script>";
     }
     ?>
     <div class="container" id="index-banner">
+        <?php if(!$_SESSION['isAdmin']) {?>
+            <div class="row right">
+                <a class="btn-floating april-blue center" href="purchaseCredits.php">¤<?php require_once('api.php'); $api = new AprilInstituteScheduler_API(); $api -> connect(); echo $api -> getUserFromUID($_SESSION['uid'])['credits'];?></a>
+            </div>
+        <?php }?>
+
         <div class="section col">
-            <h1 class="header center april-orange-text header-font">Welcome, <?php echo $_SESSION['first_name'];?></h1>
-            
+            <div class="row center">
+                <h1 class="header center april-orange-text header-font">Welcome, <?php echo $_SESSION['first_name'];?></h1>
+            </div>
+
+
             <div class="row center">
                 <?php
                     if($_SESSION['isAdmin']) include("getEventsTable_admin.php");

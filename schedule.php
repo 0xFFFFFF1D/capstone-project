@@ -19,7 +19,7 @@
         </div>
 
     <div class="row" id="appointment_form_div" style="display: none">
-        <form class ="col s12" method="POST" action="paymentPage.php">
+        <form class ="col s12" method="POST" action="processSchedule.php?eventType=1">
             <div class="row center">
                 <div class="input-field col s4">
                     <select name="scheduled_with" id="scheduled_with">

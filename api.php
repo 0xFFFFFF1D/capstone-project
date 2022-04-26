@@ -130,21 +130,33 @@ class AprilInstituteScheduler_API
         }
 
         $sql = "INSERT INTO events (type_id, is_virtual, date, address, description)
-                VALUES(?, ?, ?, ?, ?);
-                UPDATE users
+                VALUES(?, ?, ?, ?, ?)";
+
+        $sql2 = "UPDATE users
                 SET credits = credits - 1
                 WHERE uid = ?";
 
         $statement = $this -> conn -> prepare($sql);
+        $statement2 = $this -> conn -> prepare($sql2);
 
         if (!$statement) {
             throw new Exception($statement->error);
         }
+        if (!$statement2) {
+            throw new Exception($statement2->error);
+        }
 
-        $statement -> bind_param("iisssi", $type, $is_virtual, $date, $address, $description, $uid);
+        $statement -> bind_param("iisss", $type, $is_virtual, $date, $address, $description);
+        $statement2 -> bind_param("i", $uid);
         $statement -> execute();
-        $result = $statement -> get_result();
         $ret = mysqli_insert_id($this->conn);
+
+        $statement2 -> execute();
+        $result = $statement -> get_result();
+
+        $this -> addXref($uid, $ret);
+        $this -> addXref($scheduled_with, $ret);
+        echo "xref added" . $ret;
 
         return $ret;
     }
@@ -287,6 +299,28 @@ class AprilInstituteScheduler_API
 
         $statement -> bind_param("ii", $amount, $uid);
         $statement -> execute();
+        $result = $statement -> affected_rows;
+
+        return $result;
+    }
+
+    public function getUserFromUID($uid) {
+        $sql = "SELECT *
+                FROM users
+                WHERE uid = ?";
+
+        $statement = $this -> conn -> prepare($sql);
+
+        if (!$statement) {
+            throw new Exception($statement->error);
+        }
+
+        $statement->bind_param("i", $uid);
+        $statement->execute();
         $result = $statement -> get_result();
+        while($row = $result -> fetch_assoc()) {
+            $ret = $row;
+        }
+        return $ret;
     }
 }

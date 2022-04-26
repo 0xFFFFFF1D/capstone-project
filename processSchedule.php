@@ -17,8 +17,6 @@ $api = new AprilInstituteScheduler_API();
 $api -> connect();
 if($type == 1) {
     $result = $api->addAppointment($type, $scheduled_with, 1, $scheduled_date_time, $description, null, $_SESSION['uid']);
-    $api -> addXref($_SESSION['uid'], $result);
-    $api -> addXref($scheduled_with, $result);
 }
 else if($type == 2) {
     $result = $api->addToEvent($event_id, $_SESSION['uid']);
