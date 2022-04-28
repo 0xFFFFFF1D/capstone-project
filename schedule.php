@@ -19,6 +19,11 @@
         </div>
 
     <div class="row" id="appointment_form_div" style="display: none">
+        <?php $api = new AprilInstituteScheduler_API(); $api ->connect();
+        if($api->getUserFromUID($_SESSION['uid'])['credits'] <= 0) {
+            ?> <span>Insufficient funds, please purchase appointments through the "Credits" tab above</span>
+        <?php }
+        else {?>
         <form class ="col s12" method="POST" action="processSchedule.php?eventType=1">
             <div class="row center">
                 <div class="input-field col s4">
@@ -61,6 +66,7 @@
                 </div>
             </div>
         </form>
+        <?php }?>
     </div>
 
     <div class="row" id="event_form_div" style="display: none">
