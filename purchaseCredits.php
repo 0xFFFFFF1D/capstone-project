@@ -1,5 +1,6 @@
 <?php
 session_start();
+$title = "Purchase";
     if(!isset($_SESSION['uid'])) {
         header("Location: index.php");
     }
