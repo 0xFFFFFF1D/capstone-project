@@ -34,6 +34,7 @@
 
             if ($_SESSION['isAdmin']) {
                 echo '<li><a href="createEvent.php">Create</a></li>';
+                echo '<li><a href="editCredits.php">Credit Management</a></li>';
             }
 
             echo '<li><a href="logout.php">Logout</a></li>';

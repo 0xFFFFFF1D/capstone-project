@@ -323,4 +323,46 @@ class AprilInstituteScheduler_API
         }
         return $ret;
     }
+
+    public function updateUserCredits($uid, $newAmt) {
+        $sql = "UPDATE users
+                SET credits = ?
+                WHERE uid = ?";
+        
+        $statement = $this -> conn -> prepare($sql);
+
+        if (!$statement) throw new Exception($statement->error);
+
+        $statement -> bind_param("ii", $newAmt, $uid);
+        $statement -> execute();
+        $result = $statement -> affected_rows;
+
+        return $result;
+    }
+
+    public function getUserCredits($searchString) {
+        $sql = "SELECT uid, first_name, last_name, email, credits 
+                FROM users
+                WHERE CONCAT(first_name, ' ', last_name) LIKE CONCAT( '%',?,'%') 
+                ORDER BY last_name, first_name";
+        /**
+         * This CONCAT is the worst fucking thing ever. Why the fuck does it work 
+         * like this. This is complete bullshit and is the ugliest piece of shit
+         * code I have ever written. God have mercy on PHP 
+         * */
+          
+        
+
+        $statement = $this -> conn -> prepare($sql);
+
+        if (!$statement) {
+            throw new Exception($statement->error);
+        }
+
+        $statement->bind_param("s", $searchString);
+        $statement->execute();
+        $result = $statement -> get_result();
+        
+        return $result;
+    }
 }

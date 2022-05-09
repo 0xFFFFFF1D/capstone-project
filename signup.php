@@ -99,7 +99,7 @@
             text.innerHTML = "";
         }
 
-        if (result.score >= 3 && pass.value == confirm_pass.value) {
+        if (pass.value == confirm_pass.value) {
             document.getElementById('submit_button').disabled = false;
         } else {
             document.getElementById('submit_button').disabled = true;
