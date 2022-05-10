@@ -114,6 +114,7 @@
             defaultTime: 'now', // Set default time: 'now', '1:30AM', '16:30'
             twelveHour: false, //Use AM/PM or 24-hour format
             autoClose: false, // automatic close timepicker
+            minutes: [0, 15, 30, 45]
         });
     });
     

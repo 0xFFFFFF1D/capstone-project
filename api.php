@@ -323,4 +323,38 @@ class AprilInstituteScheduler_API
         }
         return $ret;
     }
+
+    public function deleteEvent($id) {
+        $sql = "DELETE
+                FROM events
+                WHERE id = ?;";
+
+
+        $statement = $this -> conn -> prepare($sql);
+
+        if (!$statement) {
+            throw new Exception($statement->error);
+        }
+
+        $statement->bind_param("i", $id);
+        $statement->execute();
+        $this -> deleteXrefs($id);
+        return $id;
+    }
+
+    public function deleteXrefs($id) {
+        $sql = "DELETE 
+                FROM xref_users_events
+                WHERE event_id = ?";
+
+        $statement = $this -> conn -> prepare($sql);
+
+        if (!$statement) {
+            throw new Exception($statement->error);
+        }
+
+        $statement->bind_param("i", $id);
+        $statement->execute();
+        return $id;
+    }
 }

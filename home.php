@@ -38,8 +38,26 @@ if(isset($_SESSION['uid'])) {
         var instance = M.Collapsible.init(elem, {
             accordion: false
         });
+
+        $(document).ready(function(){
+            $('#confirm_modal').modal();
+        });
+
+        function setEventId(id) {
+            document.getElementById('event_id').value = id;
+        }
+
     </script>
 <?php
+    if(isset($_POST['confirm_delete'])) {
+        $api -> connect();
+        $api->deleteEvent(htmlentities($_REQUEST['event_id']));
+        $api -> disconnect();
+        echo "<script>M.toast({html: 'Successfully deleted event, re-enter page to view'});</script>";
+    }
+    else if(isset($_POST['cancel_delete'])){
+        echo "<script>M.toast({html: 'Successfully cancelled event deletion'});</script>";
+    }
 include("template/base_footer.php");
 }
 else{
