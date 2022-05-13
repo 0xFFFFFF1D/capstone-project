@@ -52,6 +52,7 @@ while($row = $users_scheduled_with_admin -> fetch_assoc()) { ?>
                         <th>Date & Time</th>
                         <th>Location</th>
                         <th>Description</th>
+                        <!-- <th>Virtual?</th> -->
                         <th>Edit</th>
                         </tr>
                     </thead>
@@ -63,11 +64,17 @@ while($row = $users_scheduled_with_admin -> fetch_assoc()) { ?>
                             <td><?php echo $row2['date'];?></td>
                             <td>
                             <?php 
-                                if($row2['is_virtual']) echo "<a href=" . $row2['address'] . ">Zoom</a>";
+                                if($row2['is_virtual'] > 0) echo "<a href=" . $row2['address'] . ">Zoom</a>";
                                 else echo $row2['address'];
                             ?>
                             </td>
                             <td><?php echo $row2['description'];?></td>
+                            <!-- <td>
+                                <label>
+                                    <input type="checkbox" class="filled-in" onchange="changeVirtual(<?php echo $row2['is_virtual'];?>)"/>
+                                    <span>Filled in</span>
+                                </label>
+                            </td> -->
                             <td>
                                 <?php
                                 echo '<form method="POST" action="editEvent.php">';
@@ -77,13 +84,15 @@ while($row = $users_scheduled_with_admin -> fetch_assoc()) { ?>
                                 <input type="hidden" name="description" value="'.$row2['description'].'">
                                 <input type="hidden" name="event_id" value="'.$row2['id'].'">
                                 <input type="hidden" name="type" value="'.$row2['type_id'].'">
+                                <input type="hidden" name="address" value="'.$row2['address'].'">
+                                <input type="hidden" name="virtual" value="'.$row2['is_virtual'].'">
                                 <button type="submit" id="adminEdit"class="btn modal-trigger waves-effect waves-light april-orange">
                                     <i class="material-icons">edit</i>
                                 </button>
                                 </form>';
                                 ?></td>
                             <td>
-                                <a onclick='setEventId("<?php echo $row2['id'];?>")' href='#confirm_modal' class='btn-floating btn conquer-red modal-trigger'><i class='medium material-icons'>delete</i></a></td>
+                                <a onclick='setIds("<?php echo $row2['id'];?>", "<?php echo $row['uid'];?>")' href='#confirm_modal' class='btn-floating btn conquer-red modal-trigger'><i class='medium material-icons'>delete</i></a></td>
                             <div id='confirm_modal' class='modal'>
                                 <div class='modal-content'>
                                     <h4>Delete Row</h4>
@@ -92,6 +101,7 @@ while($row = $users_scheduled_with_admin -> fetch_assoc()) { ?>
                                 <div class='modal-footer'>
                                     <form method='POST'>
                                         <input name='event_id' id='event_id' type='number' hidden>
+                                        <input name='uid' id='uid' type='number' hidden>
                                         <button name='cancel_delete' type='submit' class='modal-action modal-close btn-flat'>Cancel</button>
                                         <button name='confirm_delete' type='submit' class='modal-action modal-close btn-flat'>Confirm</button>
                                     </form>

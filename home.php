@@ -43,15 +43,24 @@ if(isset($_SESSION['uid'])) {
             $('#confirm_modal').modal();
         });
 
-        function setEventId(id) {
-            document.getElementById('event_id').value = id;
+        function setIds(event_id, uid) {
+            document.getElementById('event_id').value = event_id;
+            document.getElementById('uid').value = uid;
         }
+
+        // function changeVirtual() {
+            <?php /*
+            $api -> connect();
+            $api -> updateEvent($row2['id'], null, null, null, $row2['is_virtual'] * -1);
+            $api -> disconnect();?> */
+        //} ?>
 
     </script>
 <?php
     if(isset($_POST['confirm_delete'])) {
         $api -> connect();
         $api->deleteEvent(htmlentities($_REQUEST['event_id']));
+        $api -> addCredits(htmlentities($_REQUEST['uid']), 1);
         $api -> disconnect();
         echo "<script>M.toast({html: 'Successfully deleted event, re-enter page to view'});</script>";
     }

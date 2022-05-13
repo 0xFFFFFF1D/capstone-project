@@ -161,8 +161,9 @@ class AprilInstituteScheduler_API
         return $ret;
     }
 
-    public function updateEvent($event_id, $scheduled_with, $date, $description) {
-        $sql_event = "UPDATE events SET date=?, description=? WHERE id=?";
+    public function updateEvent($event_id, $scheduled_with, $date, $description, $is_virtual, $address) {
+        $sql_event = "UPDATE events SET date=IFNULL(?, date), description=IFNULL(?, description), 
+                  is_virtual=IFNULL(?, is_virtual), address=IFNULL(?, address) WHERE id=?";
         // $sql_xref = "UPDATE xref_users_events SET user_id = ? WHERE "
         // The above needs to be worked on to make sure that $scheduled_with actually works
         $stmt = $this -> conn -> prepare($sql_event);
@@ -171,7 +172,7 @@ class AprilInstituteScheduler_API
             throw new Exception($stmt->error);
         }
 
-        $stmt -> bind_param("ssi", $date, $description, $event_id);
+        $stmt -> bind_param("ssisi", $date, $description, $is_virtual, $address, $event_id);
         $stmt -> execute();
         $result = $stmt -> get_result();
 
@@ -391,5 +392,35 @@ class AprilInstituteScheduler_API
         $statement->bind_param("i", $id);
         $statement->execute();
         return $id;
+    }
+
+
+    /**
+     * @param $datetime
+     * @return bool
+     * @throws Exception
+     *
+     * Validates a time, given a date and time.
+     * A time is valid if it is between 9am and 6pm
+     * and also if it does not interfere with any previously scheduled
+     * appointments.
+     */
+    public function validateTime($datetime) {
+        $time_arr = explode(":", explode("T", $datetime)[1]);
+        $hour_before = explode("T", $datetime)[0] . "T" . intval($time_arr[0]) - 1 . ":" . $time_arr[1];
+        $hour_after = explode("T", $datetime)[0] . "T" . intval($time_arr[0]) + 1 . ":" . $time_arr[1];
+
+
+        $sql = "SELECT * FROM events WHERE type_id = 1 AND date >= ? AND date <= ?";
+
+        $statement = $this -> conn -> prepare($sql);
+
+        if(!$statement) {
+            throw new Exception($statement->error);
+        }
+
+        $statement -> bind_param("ss", $hour_before, $hour_after);
+        $statement -> execute();
+        return $statement -> get_result() -> num_rows === 0 && intval($time_arr[0]) >= 9 && intval($time_arr[0]) <= 18;
     }
 }

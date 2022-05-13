@@ -18,7 +18,12 @@ $api -> connect();
 
 // add time conflict check
 if($type == 1) {
-    $result = $api->addAppointment($type, $scheduled_with, 1, $scheduled_date_time, $description, null, $_SESSION['uid']);
+    if($api -> validateTime($scheduled_date_time)) {
+        $result = $api->addAppointment($type, $scheduled_with, 1, $scheduled_date_time, $description, null, $_SESSION['uid']);
+    }
+    else {
+        header("Location: schedule.php?status=Time unavailable, please reschedule with a different time");
+    }
 }
 else if($type == 2) {
     $result = $api->addToEvent($event_id, $_SESSION['uid']);

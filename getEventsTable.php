@@ -54,7 +54,7 @@ while($row = $result -> fetch_assoc()) {
         echo "<td>N/A</td>";
     }
 
-    if($row['is_virtual']) {
+    if($row['is_virtual'] > 0) {
         echo "<td><a href=" . $row['address'] . ">Zoom</a></td>";
     }
     else {

@@ -9,8 +9,9 @@ $scheduled_event_id = trim($_POST['event_id']);
 $date = new DateTime($_POST['date']);
 $type = trim($_POST['type']);
 $title = "Editing Event";
-$description = preg_replace('/\s+/', ' ', trim($_POST['description']));
-
+$description = trim(htmlentities($_POST['description']));
+$address = htmlentities($_POST['address']);
+$virtual = htmlentities($_POST['virtual']);
 include("template/base_header.php");
 ?>
 
@@ -63,7 +64,7 @@ include("template/base_header.php");
             <div class="row center">
                 <div class="input-field col s12">
                     <textarea name="info" id="info" class="materialize-textarea">
-                        <?php echo $description ?>
+                        <?php echo $description;?>
                     </textarea>
                     <label for="info">Description</label>
                     <span class="helper-text">(i.e. "Tutoring", "Therapy", etc.)</span>
@@ -86,6 +87,19 @@ include("template/base_header.php");
         <form class ="col s12" method="POST" action="process_editEvent.php">
            <input type="hidden" name="event_id" value="<?php echo $scheduled_event_id?>"> 
            <input type="hidden" name="scheduled_with" value="<?php echo $scheduled_uid?>">
+            <div class="row center">
+                <div class="col s6">
+                    <label for="virtual">
+                        <input type="checkbox" class="filled-in" id="virtual" name="virtual"/>
+                        <span>Virtual?</span>
+                    </label>
+                </div>
+                <div class="input-field col s6">
+                    <input type="text" class="validate" name="address" id="address" value="<?php echo $address;?>">
+                    <label for="address">Address</label>
+                </div>
+            </div>
+
             <div class="row center">
                 <div class="input-field col s6">
                     <input type="text" class="datepicker" name="date" id="date" required>
@@ -127,6 +141,16 @@ include("template/base_footer.php");
 
 
 <script>
+    function checkVirtual() {
+        document.getElementById('virtual').checked = "<?php echo $virtual == 1;?>";
+    }
+
+    document.addEventListener('DOMContentLoaded', checkVirtual());
+
+    function printval() {
+        console.log(document.getElementById('info').value);
+    }
+
     document.addEventListener('DOMContentLoaded', function () {
         var elems = document.querySelectorAll('.datepicker');
         var instances = M.Datepicker.init(elems, {
@@ -167,5 +191,5 @@ include("template/base_footer.php");
             schedule_form.setAttribute('style', 'display:block;');
         }
     }
- 
+</script>
 </script>

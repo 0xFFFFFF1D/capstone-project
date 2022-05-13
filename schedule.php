@@ -1,6 +1,12 @@
-<?php session_start(); $title="Schedule"; include("template/base_header.php"); require_once("api.php"); ?>
+<?php session_start(); $title="Schedule";
+if(isset($_SESSION['uid'])){
+    include("template/base_header.php");
+    require_once("api.php"); ?>
 
 <div class="container mainContainer" style="padding-top: 0">
+        <?php if(isset($_REQUEST['status'])) {
+            echo htmlentities($_REQUEST['status']);
+        }?>
         <div class="row valign-wrapper">
             <div class="col s6">
                 <h2 class="header-font">Schedule Form: </h2>
@@ -138,3 +144,7 @@
         }
     }
 </script>
+<?php }
+else{
+    header("Location: index.php");
+}
