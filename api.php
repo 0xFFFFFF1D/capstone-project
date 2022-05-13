@@ -351,6 +351,7 @@ class AprilInstituteScheduler_API
          * code I have ever written. God have mercy on PHP 
          * */
         
+        $statement = $this -> conn -> prepare($sql);
         $statement->bind_param("s", $searchString);
         $statement->execute();
         $result = $statement -> get_result();
