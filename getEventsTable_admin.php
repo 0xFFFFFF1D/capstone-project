@@ -78,9 +78,26 @@ while($row = $users_scheduled_with_admin -> fetch_assoc()) { ?>
                                 <input type="hidden" name="event_id" value="'.$row2['id'].'">
                                 <input type="hidden" name="type" value="'.$row2['type_id'].'">
                                 <button type="submit" id="adminEdit"class="btn modal-trigger waves-effect waves-light april-orange">
-                                <i class="material-icons">edit</i>
-                                </button></form>';
+                                    <i class="material-icons">edit</i>
+                                </button>
+                                </form>';
                                 ?></td>
+                            <td>
+                                <a onclick='setEventId("<?php echo $row2['id'];?>")' href='#confirm_modal' class='btn-floating btn conquer-red modal-trigger'><i class='medium material-icons'>delete</i></a></td>
+                            <div id='confirm_modal' class='modal'>
+                                <div class='modal-content'>
+                                    <h4>Delete Row</h4>
+                                    <p>Are you sure to delete this event?</p>
+                                </div>
+                                <div class='modal-footer'>
+                                    <form method='POST'>
+                                        <input name='event_id' id='event_id' type='number' hidden>
+                                        <button name='cancel_delete' type='submit' class='modal-action modal-close btn-flat'>Cancel</button>
+                                        <button name='confirm_delete' type='submit' class='modal-action modal-close btn-flat'>Confirm</button>
+                                    </form>
+                                </div>
+                            </div>
+                            </td>
                         </tr>
                         <?php } ?>
                     </tbody>

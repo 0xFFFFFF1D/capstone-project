@@ -350,8 +350,18 @@ class AprilInstituteScheduler_API
          * like this. This is complete bullshit and is the ugliest piece of shit
          * code I have ever written. God have mercy on PHP 
          * */
-          
         
+        $statement->bind_param("s", $searchString);
+        $statement->execute();
+        $result = $statement -> get_result();
+        
+        return $result;
+    }
+        
+    public function deleteEvent($id) {
+        $sql = "DELETE
+                FROM events
+                WHERE id = ?;";
 
         $statement = $this -> conn -> prepare($sql);
 
@@ -359,10 +369,26 @@ class AprilInstituteScheduler_API
             throw new Exception($statement->error);
         }
 
-        $statement->bind_param("s", $searchString);
+        $statement->bind_param("i", $id);
         $statement->execute();
-        $result = $statement -> get_result();
-        
-        return $result;
+        $this -> deleteXrefs($id);
+        return $id;
+    }
+
+    public function deleteXrefs($id) {
+        $sql = "DELETE 
+                FROM xref_users_events
+                WHERE event_id = ?";
+
+        $statement = $this -> conn -> prepare($sql);
+
+        if (!$statement) {
+            throw new Exception($statement->error);
+        }
+
+
+        $statement->bind_param("i", $id);
+        $statement->execute();
+        return $id;
     }
 }

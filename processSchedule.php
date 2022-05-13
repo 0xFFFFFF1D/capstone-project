@@ -15,6 +15,8 @@ if(!empty($scheduled_date) && !empty($scheduled_time)) {
 require_once("api.php");
 $api = new AprilInstituteScheduler_API();
 $api -> connect();
+
+// add time conflict check
 if($type == 1) {
     $result = $api->addAppointment($type, $scheduled_with, 1, $scheduled_date_time, $description, null, $_SESSION['uid']);
 }
