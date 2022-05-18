@@ -76,7 +76,7 @@ if(isset($_SESSION['uid'])){
     </div>
 
     <div class="row" id="event_form_div" style="display: none">
-        <form class ="col s12" method="POST" action="processSchedule.php?eventType=2">
+        <form class ="col s12" method="POST" action="paymentPage.php">
             <select name="event_id">
                 <option value="" selected disabled>--Choose an Event--</option>
                 <?php 
@@ -86,12 +86,13 @@ if(isset($_SESSION['uid'])){
                     while($row = $events->fetch_assoc()){
                         $numPpl = $api -> getNumUsersInEvent($row['id']);
                         if($numPpl < $row['capacity']) {
-                            echo "<option value='" . $row['id'] . "'>" . $row['name'] . "</option>";
+                            echo "<option value='" . $row['id'] . "|" . $row['price'] . "'>" . $row['name'] . "</option>";
                         }
                     }
                 $api -> disconnect();?>
             </select>
             <label for="event_id">Event</label>
+            <input type="hidden" name="type" value="event"/>
             <div class="row center">
                 <div class="col s4">
                     <button type="submit" class="btn-large waves-effect waves-light april-blue">
