@@ -546,6 +546,7 @@ class AprilInstituteScheduler_API
      * @return bool
      * @throws Exception
      *
+     *
      * Validates a time, given a date and time.
      * A time is valid if it is between 9am and 6pm
      * and also if it does not interfere with any previously scheduled
