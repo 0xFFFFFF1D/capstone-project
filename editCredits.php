@@ -14,19 +14,29 @@ $users = $api -> getUserCredits($searchQuery);
 echo '<div class="container">';
 echo '<h1 class="header-font">Credit Management</h1>';
 echo '
-  <nav style="margin-bottom: 1rem;">
-    <div class="nav-wrapper">
-      <form action="editCredits.php" method="GET">
-        <div class="input-field april-blue">
-          <input placeholder="Search By Name" id="search" type="search" name="searchQuery" required>
-          <label class="label-icon" for="search">
-            <i class="material-icons">search</i> 
-          </label>
-          <i class="material-icons">close</i>
+<div class="row valign-wrapper">
+  <div class="col s8">
+    <nav>
+        <div class="nav-wrapper">
+        <form action="editCredits.php" method="GET">
+            <div class="input-field april-blue">
+            <input placeholder="Search By Name" id="search" type="search" name="searchQuery" required>
+            <label class="label-icon" for="search">
+                <i class="material-icons">search</i> 
+            </label>
+            <i class="material-icons">close</i>
+            </div>
+        </form>
         </div>
-      </form>
-    </div>
-  </nav>
+    </nav>
+  </div>
+  <div class="col s4">
+    <form>
+        <input id="search" type="hidden" name="searchQuery" value=" "/>
+        <button class="btn-large april-blue">Display all users</button>
+    </form>
+  </div>
+</div>
 ';
 
 if ($searchQuery === "") {

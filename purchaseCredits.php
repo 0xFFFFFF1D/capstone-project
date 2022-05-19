@@ -21,7 +21,11 @@ $title = "Purchase";
                     </a>
                 </div>
                 <div class="card-action">
-                    <a href="paymentPage.php?amount=4&price=700">4 credits, $700</a>
+                    <form action="paymentPage.php" method="POST">
+                        <input type="hidden" value="700" name="price" />
+                        <input type="hidden" value="credits" name="type" />
+                        <button class="btn april-orange">4 credits, $700</button>
+                    </form>
                 </div>
             </div>
         </div>
@@ -35,7 +39,11 @@ $title = "Purchase";
                     </a>
                 </div>
                 <div class="card-action">
-                    <a href="paymentPage.php?amount=6&price=1000">6 credits, $1000</a>
+                    <form action="paymentPage.php" method="POST">
+                        <input type="hidden" value="1000" name="price" />
+                        <input type="hidden" value="credits" name="type" />
+                        <button class="btn april-orange">6 credits, $1,000</button>
+                    </form>
                 </div>
             </div>
         </div>
@@ -49,7 +57,11 @@ $title = "Purchase";
                     </a>
                 </div>
                 <div class="card-action">
-                    <a href="paymentPage.php?amount=10&price=1500">10 credits, $1500</a>
+                    <form action="paymentPage.php" method="POST">
+                        <input type="hidden" value="1500" name="price" />
+                        <input type="hidden" value="credits" name="type" />
+                        <button class="btn april-orange">10 credits, $1,500</button>
+                    </form>
                 </div>
             </div>
         </div>
