@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * An API for the backend for the AprilScheduler MySQL Server.
+ * 
+ * This class contains every function required for for generating queries
+ * to interface with the MySQL Server. 
+ */
 class AprilInstituteScheduler_API
 {
     var $host = null;
@@ -9,6 +15,9 @@ class AprilInstituteScheduler_API
     var $conn = null;
     var $result = null;
 
+    /**
+     * Constructor for the API object
+     */
     function __construct() {  //$dbhost, $dbuser, $dbpass, $dbname
         //$this -> host = ***REMOVED***
         //$this -> user = ***REMOVED***
@@ -21,6 +30,9 @@ class AprilInstituteScheduler_API
         $this -> name = ***REMOVED***
     }
 
+    /**
+     * Connects to the SQL database using mysqli()
+     */
     public function connect() {
         $this->conn = new mysqli($this->host, $this->user, $this->pass, $this->name);
         if (mysqli_connect_errno()) {
@@ -33,6 +45,9 @@ class AprilInstituteScheduler_API
 
     }
 
+    /**
+     * Disconnects from the database.
+     */
     public function disconnect()
     {
         if ($this->conn != null) {
@@ -40,6 +55,17 @@ class AprilInstituteScheduler_API
         }
     }
 
+    /**
+     * Registers a user given that user's information.
+     * 
+     * @param string $first_name
+     * @param string $last_name
+     * @param string $email
+     * @param int $phone_number
+     * @param string $password
+     * @return int $ret
+     * @throws Exception
+     */
     public function registerUser($first_name, $last_name, $email, $phone_number, $password)
     {
 
@@ -62,6 +88,14 @@ class AprilInstituteScheduler_API
     }
 
 
+    /**
+     * Verifies user login.
+     * 
+     * @param string $email
+     * @param string $password
+     * @return array $row
+     * @throws Exception
+     */
     public function verifyLogIn($email, $password) {
         $sql = "SELECT * FROM users WHERE email = ?";
 
@@ -84,6 +118,13 @@ class AprilInstituteScheduler_API
         }
     }
 
+    /**
+     * Gets the name of an event type given the type id.
+     * 
+     * @param int $type_id
+     * @return array $ret
+     * @throws Exception
+     */
     public function getTypeFromTypeID($type_id){
         $sql = "SELECT type 
                 FROM types
@@ -104,6 +145,13 @@ class AprilInstituteScheduler_API
         return $ret;
     }
 
+    /**
+     * Gets the admin associated with a given event
+     * 
+     * @param int $event_id
+     * @return array
+     * @throws Exception
+     */
     public function getScheduledWith($event_id){
         $sql = "SELECT users.*
                 FROM admins, xref_users_events, users
@@ -124,6 +172,19 @@ class AprilInstituteScheduler_API
         return $result -> fetch_assoc();
     }
 
+    /**
+     * Given all fields, adds an appointment for a user and subtracts one
+     * credit.
+     * 
+     * @param int $type
+     * @param int $is_virtual
+     * @param string $date
+     * @param string $description
+     * @param string $address
+     * @param int $uid
+     * @return int $ret     Value of the AUTO_INCREMENT field updated
+     * @throws Exception
+     */
     public function addAppointment($type, $scheduled_with, $is_virtual, $date, $description, $address, $uid) {
         if($is_virtual == 1) {
             $address = "https://us02web.zoom.us/j/3847814790";
@@ -161,6 +222,18 @@ class AprilInstituteScheduler_API
         return $ret;
     }
 
+    /**
+     * Given all fields, updates an event's fields.
+     * 
+     * @param int $event_id
+     * @param string $scheduled_with    This parameter is never used
+     * @param string $date
+     * @param string $description
+     * @param int $is_virutal           Is only 1/0
+     * @param string $address
+     * @return mysqli_object $result
+     * @throws Exceptions 
+     */
     public function updateEvent($event_id, $scheduled_with, $date, $description, $is_virtual, $address) {
         $sql_event = "UPDATE events SET date=IFNULL(?, date), description=IFNULL(?, description), 
                   is_virtual=IFNULL(?, is_virtual), address=IFNULL(?, address) WHERE id=?";
@@ -179,6 +252,14 @@ class AprilInstituteScheduler_API
         return $result;
     }
 
+    /**
+     * Adds a cross-reference in xref_users_events given a user id and event id.
+     * 
+     * @param int $uid
+     * @param int $event_id
+     * @return mysqli_object $result
+     * @throws Exception
+     */
     public function addXref($uid, $event_id) {
         $sql = "INSERT INTO xref_users_events (user_id, event_id)
                 VALUES(?, ?)";
@@ -196,6 +277,14 @@ class AprilInstituteScheduler_API
         return $result;
     }
 
+    /**
+     * Given an event_id, returns the number of users registered
+     * for that event.
+     * 
+     * @param int $event_id
+     * @return int
+     * @throws Exception
+     */
     public function getNumUsersInEvent($event_id) {
         $sql = "SELECT * FROM xref_users_events WHERE event_id = ?";
 
@@ -211,7 +300,20 @@ class AprilInstituteScheduler_API
 
         return $result -> num_rows;
     }
-    //! price = 100 IS TEST CODE!!!! REMOVE IT ONCE WE GET ACTUAL PRICES!!!
+
+    /**
+     * Creates an event given all event parameters.
+     * 
+     * @param int $isVirtual     Is only 1/0
+     * @param string $date
+     * @param string $address
+     * @param string $description
+     * @param int $capacity
+     * @param string $name
+     * @param int $price
+     * @return int $ret         Value of the AUTO_INCREMENT field updated
+     * @throws Exception
+     */
     public function createEvent($isVirtual, $date, $address, $description, $capacity, $name, $price = 100) {
         if($isVirtual == 1) {
             $address = "https://us02web.zoom.us/j/3847814790";
@@ -234,6 +336,13 @@ class AprilInstituteScheduler_API
         return $ret;
     }
 
+    /**
+     * Adds a user to an event given their uid and the event id.
+     * 
+     * @param int $event_id
+     * @param int $uid
+     * @return int $uid
+     */
     public function addToEvent($event_id, $uid) {
         $sql = "INSERT INTO xref_users_events (user_id, event_id)
                 VALUES(?, ?)";
@@ -250,24 +359,17 @@ class AprilInstituteScheduler_API
 
         return $uid;
     }
-    public function getUsersEventsWithAdmin($user_id, $admin_id) {
-        /**
-         * Given a user and an admin, get all events that the user is registered
-         * to that the admin manages
-         */
-        $sql = "SELECT e.description
-            FROM
-                xref_users_events AS x,
-                users AS u,
-                events AS e";
-    }
 
+    /**
+     * Gets all of xref_users_events, and then filters out the ones with
+     * $admin_id, and then filters by only the events that $admin_id
+     * is managing
+     * 
+     * @param int $admin_id
+     * @return mysqli_object $result
+     * @throws Exception
+     */
     public function getUsersScheduledWithAdmin($admin_id) {
-        /** 
-         * Gets all of xref_users_events, and then filters out the ones with
-         * $admin_id, and then filters by only the events that $admin_id
-         * is managing
-         */
         $sql = "SELECT DISTINCT x.user_id, u.first_name, u.last_name
             FROM
                 xref_users_events AS x,
@@ -289,6 +391,14 @@ class AprilInstituteScheduler_API
         return $result;
     }
 
+    /**
+     * Adds an amount of credits to a user given their uid.
+     * 
+     * @param int $uid      User's uid
+     * @param int $amount   Amount to be added to credits field
+     * @return int $result
+     * @throws Exception
+     */
     public function addCredits($uid, $amount) {
         $sql = "UPDATE users
                 SET credits = credits + ?
@@ -305,6 +415,13 @@ class AprilInstituteScheduler_API
         return $result;
     }
 
+    /**
+     * Gets a row from table users given a uid.
+     * 
+     * @param int $uid
+     * @return array $ret;
+     * @throws Exception
+     */
     public function getUserFromUID($uid) {
         $sql = "SELECT *
                 FROM users
@@ -325,6 +442,15 @@ class AprilInstituteScheduler_API
         return $ret;
     }
 
+    /**
+     * Updates the number of credits a user has given a uid
+     * and a new credit amount.
+     * 
+     * @param int $uid
+     * @param int $newAmt
+     * @return int $result
+     * @throws Exception
+     */
     public function updateUserCredits($uid, $newAmt) {
         $sql = "UPDATE users
                 SET credits = ?
@@ -341,6 +467,16 @@ class AprilInstituteScheduler_API
         return $result;
     }
 
+    /**
+     * Gets a row from users given a search string. 
+     * Row returned contains uid, first_name, last_name, email, and credits.
+     * Should probably be renamed.
+     * 
+     * @param String $searchString
+     * @return mysqli_result $result
+     * @throws Exception
+     * @author Riley Kim <rileykim257@gmail.com>
+     */
     public function getUserCredits($searchString) {
         $sql = "SELECT uid, first_name, last_name, email, credits 
                 FROM users
@@ -360,6 +496,13 @@ class AprilInstituteScheduler_API
         return $result;
     }
         
+    /**
+     * Deletes event from table event given an id.
+     * 
+     * @param int $id
+     * @return int $id
+     * @throws Exception
+     */
     public function deleteEvent($id) {
         $sql = "DELETE
                 FROM events
@@ -377,6 +520,14 @@ class AprilInstituteScheduler_API
         return $id;
     }
 
+    /**
+     * Deletes all cross-references given an event id from 
+     * the table xref_users_events.
+     * 
+     * @param int $id
+     * @return int $id
+     * @throws Exception
+     */
     public function deleteXrefs($id) {
         $sql = "DELETE 
                 FROM xref_users_events
