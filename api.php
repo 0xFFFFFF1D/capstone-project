@@ -344,13 +344,8 @@ class AprilInstituteScheduler_API
     public function getUserCredits($searchString) {
         $sql = "SELECT uid, first_name, last_name, email, credits 
                 FROM users
-                WHERE CONCAT(first_name, ' ', last_name) LIKE CONCAT( '%',?,'%') 
+                WHERE CONCAT(first_name, ' ', last_name) LIKE CONCAT( '%',?,'%')
                 ORDER BY last_name, first_name";
-        /**
-         * This CONCAT is the worst fucking thing ever. Why the fuck does it work 
-         * like this. This is complete bullshit and is the ugliest piece of shit
-         * code I have ever written. God have mercy on PHP 
-         * */
         
         $statement = $this -> conn -> prepare($sql);
         $statement->bind_param("s", $searchString);

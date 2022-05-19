@@ -8,10 +8,11 @@ $title="Events"; include("template/base_header.php"); require_once("api.php");?>
         <div class="row center">
             <?php include("getEventsCards.php");?>
 
-
+    <?php if ($_SESSION['isAdmin']) {?>
         <div class="row center">
             <a class="btn-floating btn-large waves-effect waves-light april-orange" href="createEvent.php"><i class="material-icons">add</i></a>
         </div>
+    <?php }?>
     </div>
 </div>
 
