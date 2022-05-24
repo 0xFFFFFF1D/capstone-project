@@ -20,6 +20,9 @@ function roundTime($timestamp, $precision = 15) {
   return date('H:i', round($timestamp / $precision) * $precision);
 }
 
+$start = "9:00";
+$end = "18:00";
+
 $rounded_time = roundTime($date->format("H:i"));
 ?>
 
@@ -70,8 +73,6 @@ $rounded_time = roundTime($date->format("H:i"));
                         <?php 
 
                             $interval = 15;
-                            $start = "8:00";
-                            $end = "20:00";
                             $startTime = DateTime::createFromFormat("H:i", $start);
                             $endTime = DateTime::createFromFormat("H:i", $end);
                             $intervalObj = new DateInterval("PT".$interval."M");
@@ -139,8 +140,6 @@ $rounded_time = roundTime($date->format("H:i"));
                         <?php 
 
                             $interval = 15;
-                            $start = "08:00";
-                            $end = "20:00";
                             $startTime = DateTime::createFromFormat("H:i", $start);
                             $endTime = DateTime::createFromFormat("H:i", $end);
                             $intervalObj = new DateInterval("PT".$interval."M");

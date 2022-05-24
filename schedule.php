@@ -57,8 +57,8 @@ if(isset($_SESSION['uid'])){
                         <option value="" disabled selected>Choose a Time</option>
                         <?php 
                             $interval = 15;
-                            $start = "8:00";
-                            $end = "20:00";
+                            $start = "9:00";
+                            $end = "18:01";
                             $startTime = DateTime::createFromFormat("H:i", $start);
                             $endTime = DateTime::createFromFormat("H:i", $end);
                             $intervalObj = new DateInterval("PT".$interval."M");
