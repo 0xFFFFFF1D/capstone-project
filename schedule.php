@@ -53,7 +53,21 @@ if(isset($_SESSION['uid'])){
                 </div>
 
                 <div class="input-field col s4">
-                    <input type="text" class="timepicker" name="time" id="time" required>
+                    <select name="time" id="time" required>
+                        <option value="" disabled selected>Choose a Time</option>
+                        <?php 
+                            $interval = 15;
+                            $start = "8:00";
+                            $end = "20:00";
+                            $startTime = DateTime::createFromFormat("H:i", $start);
+                            $endTime = DateTime::createFromFormat("H:i", $end);
+                            $intervalObj = new DateInterval("PT".$interval."M");
+                            $dateRange = new DatePeriod($startTime, $intervalObj, $endTime);
+                            foreach ($dateRange as $date) {
+                                echo "<option value=".$date->format("H:i").">".$date->format("H:i")."</option>";
+                            }
+                        ?>
+                    </select>
                     <label for="time">Time</label>
                 </div>
             </div>
