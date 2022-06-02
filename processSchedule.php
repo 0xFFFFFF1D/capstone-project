@@ -1,5 +1,9 @@
 <?php
 session_start();
+if(!$_SESSION['isAdmin']) {
+    header("Location: home.php");
+    exit();
+}
 $type = htmlentities($_REQUEST['eventType']);
 $scheduled_with = htmlentities($_REQUEST['scheduled_with']);
 $scheduled_date = htmlentities($_REQUEST['date']);
