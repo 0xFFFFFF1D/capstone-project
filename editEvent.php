@@ -13,6 +13,17 @@ $description = trim(htmlentities($_POST['description']));
 $address = htmlentities($_POST['address']);
 $virtual = htmlentities($_POST['virtual']);
 include("template/base_header.php");
+
+function roundTime($timestamp, $precision = 15) {
+  $timestamp = strtotime($timestamp);
+  $precision = 60 * $precision;
+  return date('H:i', round($timestamp / $precision) * $precision);
+}
+
+$start = "9:00";
+$end = "18:00";
+
+$rounded_time = roundTime($date->format("H:i"));
 ?>
 
 <div class="container mainContainer" style="padding-top: 0">
@@ -57,7 +68,24 @@ include("template/base_header.php");
                 </div>
 
                 <div class="input-field col s6">
-                    <input type="text" class="timepicker" name="time" id="time" required>
+                    <select name="time" id="time" required>
+                        <option value="" disabled>Choose a Time</option>
+                        <?php 
+
+                            $interval = 15;
+                            $startTime = DateTime::createFromFormat("H:i", $start);
+                            $endTime = DateTime::createFromFormat("H:i", $end);
+                            $intervalObj = new DateInterval("PT".$interval."M");
+                            $dateRange = new DatePeriod($startTime, $intervalObj, $endTime);
+                            foreach ($dateRange as $curdate) {
+                                if ($rounded_time == $curdate->format("H:i")) {
+                                   echo "<option value=".$curdate->format("H:i")." selected>".$curdate->format("H:i")."</option>";
+                                } else {
+                                    echo "<option value=".$curdate->format("H:i").">".$curdate->format("H:i")."</option>";
+                                }
+                            }
+                        ?>
+                    </select>
                     <label for="time">Time</label>
                 </div>
             </div>
@@ -102,12 +130,29 @@ include("template/base_header.php");
 
             <div class="row center">
                 <div class="input-field col s6">
-                    <input type="text" class="datepicker" name="date" id="date" required>
+                    <input type="text" class="datepicker" name="date" id="date" value="<?php echo $date->format("m-d-Y"); ?>" required>
                     <label for="date">Date</label>
                 </div>
 
                 <div class="input-field col s6">
-                    <input type="text" class="timepicker" name="time" id="time" required>
+                    <select name="time" id="time" required>
+                        <option value="" disabled selected>Choose a Time</option>
+                        <?php 
+
+                            $interval = 15;
+                            $startTime = DateTime::createFromFormat("H:i", $start);
+                            $endTime = DateTime::createFromFormat("H:i", $end);
+                            $intervalObj = new DateInterval("PT".$interval."M");
+                            $dateRange = new DatePeriod($startTime, $intervalObj, $endTime);
+                            foreach ($dateRange as $curdate) {
+                                if ($rounded_time == $curdate->format("H:i")) {
+                                   echo "<option value=".$curdate->format("H:i")." selected>".$curdate->format("H:i")."</option>";
+                                } else {
+                                    echo "<option value=".$curdate->format("H:i").">".$curdate->format("H:i")."</option>";
+                                }
+                            }
+                        ?>
+                    </select>
                     <label for="time">Time</label>
                 </div>
             </div>

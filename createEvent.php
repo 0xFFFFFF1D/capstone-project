@@ -1,6 +1,6 @@
 <?php session_start(); $title="Create"; include("template/base_header.php"); require_once("api.php");
 if(!$_SESSION['isAdmin']) {
-    echo "Are you being naughty?";
+    header("Location: home.php");
     exit();
 }?>
 <div class="container">
