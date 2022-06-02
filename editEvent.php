@@ -1,6 +1,10 @@
 <?php
 session_start();
 require("api.php");
+if(!$_SESSION['isAdmin']) {
+    header("Location: home.php");
+    exit();
+}
 $api = new AprilInstituteScheduler_API();
 $api -> connect();
 
