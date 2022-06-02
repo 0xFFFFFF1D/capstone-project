@@ -1,5 +1,10 @@
 <?php
 session_start();
+ 
+if(!$_SESSION['isAdmin']) {
+    header("Location: home.php");
+    exit();
+}
 $title = "Credit Management"; 
 include("template/base_header.php"); 
 
