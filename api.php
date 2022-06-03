@@ -19,15 +19,15 @@ class AprilInstituteScheduler_API
      * Constructor for the API object
      */
     function __construct() {  //$dbhost, $dbuser, $dbpass, $dbname
-        //$this -> host = ***REMOVED***
-        //$this -> user = ***REMOVED***
-        //$this -> pass = ***REMOVED***
-        //$this -> name = ***REMOVED***
+        //$this -> host = ***REMOVED***;
+        //$this -> user = ***REMOVED***;
+        //$this -> pass = ***REMOVED***;
+        //$this -> name = ***REMOVED***;
 
-        $this -> host = ***REMOVED***
-        $this -> user = ***REMOVED***
-        $this -> pass = ***REMOVED***
-        $this -> name = ***REMOVED***
+        $this -> host = ***REMOVED***;
+        $this -> user = ***REMOVED***; 
+        $this -> pass = ***REMOVED***; 
+        $this -> name = ***REMOVED***;
     }
 
     /**
